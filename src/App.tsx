@@ -1,7 +1,7 @@
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import Templates from "./components/Templates";
-import About from "./components/About";
+import WhatsIncluded from "./components/WhatsIncluded";
+import Mission from "./components/Mission";
 import Footer from "./components/Footer";
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
     <div className="min-h-screen">
       <Nav />
       <Hero />
-      <Templates />
-      <About />
+      <WhatsIncluded />
+      <Mission />
       <Footer />
     </div>
   );
