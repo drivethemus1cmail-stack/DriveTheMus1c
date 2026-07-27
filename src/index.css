@@ -1,51 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  /* night highway palette */
-  --asphalt: #14171c;
-  --asphalt-2: #1b1f26;
-  --panel: #20242c;
-  --line: #2d323c;
-  --text: #eef0f4;
-  --text-dim: #9aa1b0;
+  /* Atlanta trap palette: black, gold foil, crimson stage light */
+  --bg: #0a0908;
+  --bg-2: #131110;
+  --panel: #191613;
+  --line: #2c2622;
+  --text: #f6f1e7;
+  --text-dim: #a89d8c;
 
-  --sign-green: #1f8354;
-  --sign-green-dim: rgba(31, 131, 84, 0.35);
-  --lane: #ffcc3d;
-  --lane-glow: rgba(255, 204, 61, 0.3);
-  --reflector: #f4f4f2;
-  --caution-red: #e6493f;
+  --gold: #d9a441;
+  --gold-hi: #f4d37b;
+  --gold-glow: rgba(217, 164, 65, 0.35);
+  --crimson: #c81d3c;
+  --crimson-glow: rgba(200, 29, 60, 0.4);
 
   color-scheme: dark;
   color: var(--text);
-  background: var(--asphalt);
+  background: var(--bg);
   font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 body {
   margin: 0;
-  background: var(--asphalt);
+  background:
+    radial-gradient(1px 1px at 20px 20px, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    var(--bg);
+  background-size: 3px 3px, auto;
 }
 
 .font-display {
-  font-family: "Rajdhani", "Inter", system-ui, sans-serif;
+  font-family: "Bebas Neue", "Inter", system-ui, sans-serif;
+  letter-spacing: 0.02em;
 }
 
-/* dashed lane-line rule used as a section divider */
-.lane-divider {
-  height: 3px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--lane) 0px,
-    var(--lane) 26px,
-    transparent 26px,
-    transparent 50px
-  );
-  opacity: 0.7;
+.text-gold-foil {
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, #a9782b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-/* recording-level meter bars: green -> yellow -> red zones, like a VU meter */
+.gold-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.8;
+}
+
+/* recording-level meter bars: the "moving audio clip" accent */
 @keyframes meter-bounce {
   0%, 100% { transform: scaleY(0.2); }
   50% { transform: scaleY(1); }
@@ -56,7 +59,7 @@ body {
   transform-origin: bottom;
 }
 
-/* one-time needle sweep on mount, not a looping gimmick */
+/* one-time needle sweep on mount, pivoted at the gauge center */
 @keyframes needle-settle {
   from { transform: rotate(-90deg); }
   to { transform: rotate(var(--needle-angle, -20deg)); }
@@ -64,5 +67,6 @@ body {
 
 .gauge-needle {
   animation: needle-settle 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  transform-origin: center;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
 }

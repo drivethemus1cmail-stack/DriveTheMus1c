@@ -1,4 +1,4 @@
-import RoadSign from "./RoadSign";
+import Badge from "./Badge";
 
 type Item = {
   tag: string;
@@ -31,11 +31,11 @@ const ITEMS: Item[] = [
 
 export default function WhatsIncluded() {
   return (
-    <section id="included" className="border-t border-[var(--line)] bg-[var(--asphalt-2)] px-6 py-24">
+    <section id="included" className="border-t border-[var(--line)] bg-[var(--bg-2)] px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-14 text-center">
-          <RoadSign>Beginner Recording Pack</RoadSign>
-          <h2 className="mt-4 font-display text-4xl font-semibold uppercase text-[var(--text)] sm:text-5xl">
+          <Badge>Beginner Recording Pack</Badge>
+          <h2 className="mt-4 font-display text-5xl uppercase text-[var(--text)] sm:text-6xl">
             What's in the pack
           </h2>
         </div>
@@ -46,10 +46,10 @@ export default function WhatsIncluded() {
               key={item.name}
               className="rounded-lg border border-[var(--line)] bg-[var(--panel)] p-6"
             >
-              <span className="font-display text-xs font-semibold uppercase tracking-widest text-[var(--lane)]">
+              <span className="font-display text-sm tracking-widest text-[var(--crimson)]">
                 {item.tag}
               </span>
-              <h3 className="mt-2 font-display text-2xl font-semibold text-[var(--text)]">{item.name}</h3>
+              <h3 className="mt-2 font-display text-3xl text-[var(--text)]">{item.name}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[var(--text-dim)]">{item.desc}</p>
             </article>
           ))}

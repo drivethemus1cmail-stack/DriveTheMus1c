@@ -1,6 +1,6 @@
 const CX = 100;
-const CY = 110;
-const R = 85;
+const CY = 105;
+const R = 78;
 
 function point(angleDeg: number, radius = R) {
   const rad = (angleDeg * Math.PI) / 180;
@@ -16,29 +16,33 @@ function arcPoints(startDeg: number, endDeg: number, steps = 24) {
 }
 
 const TICKS = [
-  { deg: 170, label: "-∞" },
-  { deg: 150, label: "-24" },
-  { deg: 110, label: "-12" },
-  { deg: 70, label: "-6" },
-  { deg: 40, label: "-3" },
-  { deg: 10, label: "0" },
+  { deg: 165, label: "-∞" },
+  { deg: 135, label: "-24" },
+  { deg: 105, label: "-12" },
+  { deg: 75, label: "-6" },
+  { deg: 45, label: "-3" },
+  { deg: 15, label: "0" },
 ];
 
 export default function Gauge({ className = "" }: { className?: string }) {
+  const needleTip = point(90, R - 22);
+
   return (
     <div className={className}>
-      <svg viewBox="0 0 200 130" className="w-full">
-        <polyline points={arcPoints(180, 40)} fill="none" stroke="var(--sign-green)" strokeWidth="14" strokeLinecap="round" />
-        <polyline points={arcPoints(40, 15)} fill="none" stroke="var(--lane)" strokeWidth="14" strokeLinecap="round" />
-        <polyline points={arcPoints(15, 0)} fill="none" stroke="var(--caution-red)" strokeWidth="14" strokeLinecap="round" />
+      <svg viewBox="-15 -5 230 145" className="w-full">
+        <circle cx={CX} cy={CY} r={R + 16} fill="var(--bg-2)" stroke="var(--line)" strokeWidth="1" />
+
+        <polyline points={arcPoints(180, 45)} fill="none" stroke="var(--gold)" strokeWidth="12" strokeLinecap="round" />
+        <polyline points={arcPoints(45, 15)} fill="none" stroke="var(--gold-hi)" strokeWidth="12" strokeLinecap="round" />
+        <polyline points={arcPoints(15, 0)} fill="none" stroke="var(--crimson)" strokeWidth="12" strokeLinecap="round" />
 
         {TICKS.map((tick) => {
-          const inner = point(tick.deg, R - 12);
-          const outer = point(tick.deg, R + 4);
-          const label = point(tick.deg, R + 18);
+          const inner = point(tick.deg, R - 10);
+          const outer = point(tick.deg, R + 2);
+          const label = point(tick.deg, R + 16);
           return (
             <g key={tick.deg}>
-              <line x1={inner.x} y1={inner.y} x2={outer.x} y2={outer.y} stroke="var(--text-dim)" strokeWidth="1.5" />
+              <line x1={inner.x} y1={inner.y} x2={outer.x} y2={outer.y} stroke="var(--bg)" strokeWidth="1.5" />
               <text x={label.x} y={label.y} fontSize="9" textAnchor="middle" fill="var(--text-dim)" className="font-display">
                 {tick.label}
               </text>
@@ -46,12 +50,20 @@ export default function Gauge({ className = "" }: { className?: string }) {
           );
         })}
 
-        <g style={{ ["--needle-angle" as string]: "22deg" }}>
-          <line x1={CX} y1={CY} x2={CX} y2={CY - R + 18} stroke="var(--reflector)" strokeWidth="3" strokeLinecap="round" className="gauge-needle" />
-        </g>
-        <circle cx={CX} cy={CY} r="6" fill="var(--reflector)" />
+        <line
+          x1={CX}
+          y1={CY}
+          x2={needleTip.x}
+          y2={needleTip.y}
+          stroke="var(--gold-hi)"
+          strokeWidth="3"
+          strokeLinecap="round"
+          className="gauge-needle"
+          style={{ ["--needle-angle" as string]: "24deg" }}
+        />
+        <circle cx={CX} cy={CY} r="6" fill="var(--gold-hi)" stroke="var(--bg)" strokeWidth="1.5" />
       </svg>
-      <p className="mt-1 text-center font-display text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-dim)]">
+      <p className="mt-1 text-center font-display text-sm tracking-[0.2em] text-[var(--text-dim)]">
         Input Level &mdash; Stay Out Of The Red
       </p>
     </div>
