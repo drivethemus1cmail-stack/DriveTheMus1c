@@ -6,11 +6,11 @@ export default function LevelMeter({ className = "" }: { className?: string }) {
       {HEIGHTS.map((h, i) => (
         <span
           key={i}
-          className="meter-bar w-2 rounded-sm"
+          className="meter-bar w-1.5 rounded-[1px]"
           style={{
-            height: `${h}px`,
+            height: `${h}%`,
             animationDelay: `${(i % 6) * 0.12}s`,
-            background: "linear-gradient(to top, var(--gold), var(--gold-hi) 70%, var(--crimson))",
+            background: "linear-gradient(to top, var(--accent), var(--accent-hi))",
           }}
         />
       ))}

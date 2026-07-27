@@ -1,72 +1,82 @@
 @import "tailwindcss";
 
 :root {
-  /* Atlanta trap palette: black, gold foil, crimson stage light */
-  --bg: #0a0908;
-  --bg-2: #131110;
-  --panel: #191613;
-  --line: #2c2622;
-  --text: #f6f1e7;
-  --text-dim: #a89d8c;
+  /* editorial dark / off-white system, referenced from Ciridae's token structure */
+  --black: #0b0b0b;
+  --charcoal: #201d18;
+  --white: #fff;
+  --off-white: #edebe7;
+  --off-white-dim: #dfddd9;
 
-  --gold: #d9a441;
-  --gold-hi: #f4d37b;
-  --gold-glow: rgba(217, 164, 65, 0.35);
-  --crimson: #c81d3c;
-  --crimson-glow: rgba(200, 29, 60, 0.4);
+  /* gold, swapped in for Ciridae's terracotta-orange — ties to the brand instead of a
+     borrowed accent, kept the same warm temperature and restrained usage */
+  --accent: #c9974a;
+  --accent-hi: #e3bb74;
+
+  --ink-dim: #a89d8c;
+
+  --ease: 0.8s cubic-bezier(0.84, 0, 0.16, 1);
+  --expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --smooth: cubic-bezier(0.76, 0, 0.24, 1);
 
   color-scheme: dark;
-  color: var(--text);
-  background: var(--bg);
-  font-family: "Inter", system-ui, sans-serif;
+  color: var(--white);
+  background: var(--black);
+  font-family: "Barlow", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 body {
   margin: 0;
-  background:
-    radial-gradient(1px 1px at 20px 20px, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    var(--bg);
-  background-size: 3px 3px, auto;
+  background: var(--black);
 }
 
 .font-display {
-  font-family: "Bebas Neue", "Inter", system-ui, sans-serif;
-  letter-spacing: 0.02em;
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  letter-spacing: 0.01em;
 }
 
-.text-gold-foil {
-  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, #a9782b);
+.font-mono {
+  font-family: "Roboto Mono", monospace;
+}
+
+.text-accent-foil {
+  background: linear-gradient(180deg, var(--accent-hi), var(--accent) 70%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.gold-divider {
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.8;
+/* faint grain texture for the dark atmospheric sections, standing in for
+   photography we don't have the rights to use */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+  opacity: 0.5;
 }
 
-/* recording-level meter bars: the "moving audio clip" accent */
+/* recording-level bars — the moving audio accent */
 @keyframes meter-bounce {
   0%, 100% { transform: scaleY(0.2); }
   50% { transform: scaleY(1); }
 }
-
 .meter-bar {
   animation: meter-bounce 1.15s ease-in-out infinite;
   transform-origin: bottom;
 }
 
-/* one-time needle sweep on mount, pivoted at the gauge center */
-@keyframes needle-settle {
-  from { transform: rotate(-90deg); }
-  to { transform: rotate(var(--needle-angle, -20deg)); }
-}
-
-.gauge-needle {
-  animation: needle-settle 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
+@media (prefers-reduced-motion: reduce) {
+  .meter-bar {
+    animation: none;
+    transform: scaleY(0.7);
+  }
 }
