@@ -1,3 +1,5 @@
+import AlbumBackdrop from "./AlbumBackdrop";
+
 type Tile = {
   tag: string;
   name: string;
@@ -34,8 +36,9 @@ const TILES: Tile[] = [
 
 export default function IncludedTiles() {
   return (
-    <section id="included" className="bg-[var(--black)] px-6 py-28 sm:px-10">
-      <div className="mx-auto max-w-[1600px]">
+    <section id="included" className="relative overflow-hidden bg-[var(--black)] px-6 py-28 sm:px-10">
+      <AlbumBackdrop index={1} />
+      <div className="relative mx-auto max-w-[1600px]">
         <div className="mb-14 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <h2 className="font-display text-5xl uppercase tracking-tight text-white sm:text-6xl">
             What's in the pack
