@@ -14,6 +14,7 @@
   --accent-hi: #e3bb74;
 
   --ink-dim: #a89d8c;
+  --warn: #d9463c;
 
   --ease: 0.8s cubic-bezier(0.84, 0, 0.16, 1);
   --expo: cubic-bezier(0.87, 0, 0.13, 1);
@@ -74,9 +75,59 @@ body {
   transform-origin: bottom;
 }
 
+/* the ignition screen pulling off like a car leaving a stop —
+   a short wind-up, then gone */
+@keyframes skrt-out {
+  0% {
+    transform: translateX(0) skewX(0deg);
+  }
+  18% {
+    transform: translateX(-3vw) skewX(2.5deg);
+  }
+  100% {
+    transform: translateX(132vw) skewX(-14deg);
+  }
+}
+
+.ignition-exit {
+  animation: skrt-out 820ms cubic-bezier(0.85, 0, 0.15, 1) forwards;
+  will-change: transform;
+}
+
+@keyframes streak-past {
+  0% {
+    transform: translateX(-40%) scaleX(0.3);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(160%) scaleX(1.6);
+    opacity: 0;
+  }
+}
+
+.skrt-streak {
+  animation: streak-past 640ms cubic-bezier(0.85, 0, 0.15, 1) forwards;
+}
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .meter-bar {
     animation: none;
     transform: scaleY(0.7);
+  }
+  .ignition-exit,
+  .skrt-streak {
+    animation: none;
+  }
+  .ignition-exit {
+    opacity: 0;
+    transition: opacity 200ms linear;
   }
 }
