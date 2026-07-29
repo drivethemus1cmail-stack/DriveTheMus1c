@@ -1,4 +1,5 @@
 import { useMusic } from "../audio/MusicContext";
+import { buyLinkProps } from "../config";
 
 const SESSION_DATE = new Date()
   .toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" })
@@ -52,7 +53,7 @@ export default function TopBar() {
             </button>
           )}
           <a
-            href="#included"
+            {...buyLinkProps}
             className="font-mono inline-flex min-h-[44px] items-center rounded-full bg-[var(--accent)] px-5 text-[11px] font-medium uppercase tracking-[0.2em] text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
           >
             Get the Pack

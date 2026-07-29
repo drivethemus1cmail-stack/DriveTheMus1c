@@ -1,5 +1,6 @@
 import MotionMark from "./MotionMark";
 import LevelMeter from "./LevelMeter";
+import { buyLinkProps } from "../config";
 
 export default function Hero() {
   return (
@@ -32,7 +33,7 @@ export default function Hero() {
         </p>
 
         <a
-          href="#included"
+          {...buyLinkProps}
           className="font-display mt-10 rounded-full bg-[var(--accent)] px-8 py-3 text-lg uppercase tracking-wide text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
         >
           Get the Pack

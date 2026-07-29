@@ -1,4 +1,5 @@
 import MotionMark from "./MotionMark";
+import { buyLinkProps } from "../config";
 
 export default function Footer() {
   return (
@@ -10,7 +11,7 @@ export default function Footer() {
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
         <a
-          href="#included"
+          {...buyLinkProps}
           className="font-display rounded-full bg-[var(--accent)] px-8 py-3 text-lg uppercase tracking-wide text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
         >
           Get the Pack
