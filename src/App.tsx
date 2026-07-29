@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MusicProvider } from "./audio/MusicContext";
+import { RouterProvider, useRouter } from "./router";
 import IgnitionScreen from "./components/IgnitionScreen";
 import TopBar from "./components/TopBar";
 import Hero from "./components/Hero";
@@ -9,6 +10,7 @@ import WaveformShowcase from "./components/WaveformShowcase";
 import IncludedTiles from "./components/IncludedTiles";
 import ProcessSection from "./components/ProcessSection";
 import RightsSection from "./components/RightsSection";
+import MyMusic from "./components/MyMusic";
 import Footer from "./components/Footer";
 
 function hasStartedBefore() {
@@ -19,26 +21,41 @@ function hasStartedBefore() {
   }
 }
 
+function HomePage() {
+  return (
+    <>
+      <Hero />
+      <CompatibilityStrip />
+      <Statement />
+      <WaveformShowcase />
+      <IncludedTiles />
+      <ProcessSection />
+      <RightsSection />
+    </>
+  );
+}
+
+function Routes() {
+  const { path } = useRouter();
+  return path === "/music" ? <MyMusic /> : <HomePage />;
+}
+
 function App() {
   const [ignitionDone, setIgnitionDone] = useState(hasStartedBefore);
 
   return (
     <MusicProvider>
-      {!ignitionDone && <IgnitionScreen onComplete={() => setIgnitionDone(true)} />}
+      <RouterProvider>
+        {!ignitionDone && <IgnitionScreen onComplete={() => setIgnitionDone(true)} />}
 
-      <div className="min-h-screen">
-        <TopBar />
-        <main>
-          <Hero />
-          <CompatibilityStrip />
-          <Statement />
-          <WaveformShowcase />
-          <IncludedTiles />
-          <ProcessSection />
-          <RightsSection />
-        </main>
-        <Footer />
-      </div>
+        <div className="min-h-screen">
+          <TopBar />
+          <main>
+            <Routes />
+          </main>
+          <Footer />
+        </div>
+      </RouterProvider>
     </MusicProvider>
   );
 }

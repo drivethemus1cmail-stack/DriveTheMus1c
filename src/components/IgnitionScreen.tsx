@@ -30,6 +30,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
 
   const indexRef = useRef(0);
   const ignitedRef = useRef(false);
+  const autoRunRef = useRef(false);
   const timersRef = useRef<number[]>([]);
   const svgRef = useRef<SVGSVGElement>(null);
   const pressRef = useRef<{ x: number; y: number; t: number; moved: boolean } | null>(null);
@@ -103,6 +104,20 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
     [fireIgnition],
   );
 
+  /**
+   * One tap turns the key all the way. Stepping detent-by-detent read as
+   * "nothing happened" on the first tap, so the whole start is a single action.
+   */
+  const runFullSequence = useCallback(() => {
+    if (ignitedRef.current || autoRunRef.current) return;
+    autoRunRef.current = true;
+
+    const push = (fn: () => void, ms: number) => timersRef.current.push(window.setTimeout(fn, ms));
+    push(() => goTo(1), 0);
+    push(() => goTo(2), 420);
+    push(() => goTo(3), 1050);
+  }, [goTo]);
+
   const angleFromPointer = useCallback((clientX: number, clientY: number) => {
     const el = svgRef.current;
     if (!el) return 0;
@@ -148,14 +163,18 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
     setDragAngle(null);
     if (!press || ignitedRef.current) return;
 
-    // a tap (rather than a turn) advances one position
-    if (!press.moved && performance.now() - press.t < 500) goTo(indexRef.current + 1);
+    // a tap (rather than a turn) runs the whole start sequence
+    if (!press.moved && performance.now() - press.t < 500) runFullSequence();
     e.currentTarget.releasePointerCapture?.(e.pointerId);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (ignitedRef.current) return;
-    if (["ArrowRight", "ArrowUp", "Enter", " "].includes(e.key)) {
+    if (["Enter", " "].includes(e.key)) {
+      e.preventDefault();
+      runFullSequence();
+    } else if (["ArrowRight", "ArrowUp"].includes(e.key)) {
+      // arrows still step one detent at a time, for anyone who wants to feel it
       e.preventDefault();
       goTo(indexRef.current + 1);
     } else if (["ArrowLeft", "ArrowDown"].includes(e.key)) {
@@ -271,7 +290,11 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
             }}
           >
             <circle cx="150" cy="150" r="48" fill="url(#ign-cyl)" stroke="#6d7477" strokeWidth="2" />
-            <rect x="122" y="144" width="56" height="12" rx="3" fill="#33383a" />
+            {/* Slot runs vertically so that rotating the cylinder by a position's
+                angle points it straight at that position's marker. */}
+            <rect x="144" y="118" width="12" height="64" rx="3" fill="#33383a" />
+            {/* index notch on the pointing end, so which way it aims is unambiguous */}
+            <path d="M150 108 l7 11 h-14 z" fill="var(--accent-hi)" />
           </g>
         </svg>
 
@@ -279,7 +302,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
           {status}
         </p>
         <p className="font-mono mt-2 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
-          {ignitedRef.current ? "Pulling off" : "Drag, tap, or use arrow keys"}
+          {ignitedRef.current ? "Pulling off" : autoRunRef.current ? "Starting" : "Tap to start"}
         </p>
 
         <button

@@ -13,5 +13,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!assets/|audio/|favicon\\.svg).*)",
+      "destination": "/index.html"
+    }
   ]
 }
