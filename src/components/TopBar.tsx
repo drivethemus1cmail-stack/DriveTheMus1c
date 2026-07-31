@@ -7,8 +7,8 @@ const SESSION_DATE = new Date()
   .toUpperCase();
 
 const NAV_SECTIONS = [
-  { id: "included", label: "Included" },
-  { id: "rights", label: "Rights" },
+  { id: "included", label: "The Pack" },
+  { id: "services", label: "Services" },
 ];
 
 export default function TopBar() {

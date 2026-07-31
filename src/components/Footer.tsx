@@ -1,5 +1,5 @@
 import MotionMark from "./MotionMark";
-import { buyLinkProps } from "../config";
+import { buyLinkProps, PACK_PRICE } from "../config";
 
 export default function Footer() {
   return (
@@ -14,7 +14,7 @@ export default function Footer() {
           {...buyLinkProps}
           className="font-display rounded-full bg-[var(--accent)] px-8 py-3 text-lg uppercase tracking-wide text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
         >
-          Get the Pack
+          Get the Pack &mdash; {PACK_PRICE}
         </a>
         <a
           href="mailto:drivethemus1cmail@gmail.com"

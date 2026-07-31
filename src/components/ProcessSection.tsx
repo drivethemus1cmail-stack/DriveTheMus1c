@@ -13,7 +13,7 @@ export default function ProcessSection() {
             How It Works
           </span>
           <h2 className="mt-4 font-display text-5xl uppercase tracking-tight text-[var(--charcoal)] sm:text-6xl">
-            Driving music forward
+            From download to first take
           </h2>
           <p className="mt-4 text-[var(--charcoal)]/75">
             Every beginner artist loses hours to routing, missing plugins, and guessing at a

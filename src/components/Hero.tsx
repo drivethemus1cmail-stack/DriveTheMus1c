@@ -1,6 +1,6 @@
 import MotionMark from "./MotionMark";
 import LevelMeter from "./LevelMeter";
-import { buyLinkProps } from "../config";
+import { buyLinkProps, PACK_PRICE } from "../config";
 
 export default function Hero() {
   return (
@@ -16,28 +16,33 @@ export default function Hero() {
         <MotionMark className="mb-8 h-8 w-14" />
 
         <span className="font-mono mb-6 text-xs uppercase tracking-[0.35em] text-[var(--ink-dim)]">
-          Beginner Recording Pack &mdash; FL Studio
+          FL Studio Templates &amp; Setup Help
         </span>
 
         <h1 className="font-display text-6xl uppercase leading-[0.95] tracking-tight text-white sm:text-7xl">
-          The setup used to take
-          <br />
-          longer than the song.
-          <br />
-          <span className="text-accent-foil">Not anymore.</span>
+          Driving music{" "}
+          <span className="text-accent-foil">forward.</span>
         </h1>
 
         <p className="mt-8 max-w-lg text-base text-[var(--ink-dim)]">
-          A pre-routed FL Studio template, mixer presets, and a step-by-step guide &mdash;
-          built so newer artists spend their time recording, not troubleshooting.
+          A pre-routed FL Studio template and one-on-one setup help for artists recording
+          their first songs &mdash; from someone who learned it the hard way.
         </p>
 
-        <a
-          {...buyLinkProps}
-          className="font-display mt-10 rounded-full bg-[var(--accent)] px-8 py-3 text-lg uppercase tracking-wide text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
-        >
-          Get the Pack
-        </a>
+        <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+          <a
+            {...buyLinkProps}
+            className="font-display inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--accent)] px-8 py-3 text-lg uppercase tracking-wide text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
+          >
+            Get the Pack &mdash; {PACK_PRICE}
+          </a>
+          <a
+            href="#services"
+            className="font-display inline-flex min-h-[44px] items-center justify-center rounded-full border border-white/20 px-8 py-3 text-lg uppercase tracking-wide text-white transition-colors hover:border-[var(--accent)] hover:text-[var(--accent-hi)]"
+          >
+            Book a Session
+          </a>
+        </div>
       </div>
 
       <LevelMeter className="mx-auto mt-16 h-16 w-full max-w-sm" />

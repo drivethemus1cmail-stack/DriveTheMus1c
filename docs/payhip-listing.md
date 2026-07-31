@@ -25,17 +25,16 @@ so your first session is spent recording, not troubleshooting.
 
 ## Price
 
-**Suggested starting point: $25–30.** Reasoning: below $20 reads as low-effort for a
-template pack; above $40 needs demo video or social proof to justify. `$27` sits
-under the $30 threshold while signalling a real product.
+**$15** — set by the owner.
 
-**Validate before committing** — search "FL Studio vocal template" on Payhip and
-Gumroad and see where comparable packs actually land. My number is a starting
-point, not research.
+Deliberately positioned as the entry point of a ladder rather than the main
+product. The pack is the cheap thing that proves the help is worth paying for;
+the calls ($30–$150) are where the margin is. Priced this way, an unsure buyer
+has almost no reason not to try it.
 
-Consider launching at full price with a time-boxed intro code (`FIRST10`, 30% off,
-first 10 buyers) rather than pricing low permanently. Discounts are easy to remove;
-price increases annoy early buyers.
+Worth revisiting once there are testimonials or a demo video — those are what
+justify a higher number later. Raising a price on new buyers is fine; lowering
+it after early buyers paid more is not, so starting low is the safe direction.
 
 ---
 
@@ -115,6 +114,22 @@ REQUIREMENTS
 • Your interface's audio driver installed
 
 Projects saved in a newer FL Studio version may not open in an older one.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STILL STUCK? GET ON A CALL
+
+The pack covers the setup. If something still won't work, you can book time
+with me directly instead of digging through forum threads:
+
+• $30  — Quick Fix Call: one specific issue, sorted.
+• $50  — Beginner Studio Setup Call: FL Studio settings, mic/interface, MIDI,
+         plugins, vocal routing, exporting, and organisation.
+• $75  — First Song Setup Session: complete setup and recording workflow for
+         your first song.
+• $100–$150 — Local In-Person Setup: Santa Cruz-area studio or equipment setup.
+
+Details at drivethemus1c.com
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

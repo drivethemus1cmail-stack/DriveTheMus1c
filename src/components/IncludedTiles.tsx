@@ -1,4 +1,5 @@
 import AlbumBackdrop from "./AlbumBackdrop";
+import { buyLinkProps, PACK_PRICE } from "../config";
 
 type Tile = {
   tag: string;
@@ -39,13 +40,32 @@ export default function IncludedTiles() {
     <section id="included" className="relative overflow-hidden bg-[var(--black)] px-6 py-28 sm:px-10">
       <AlbumBackdrop index={1} />
       <div className="relative mx-auto max-w-[1600px]">
-        <div className="mb-14 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <h2 className="font-display text-5xl uppercase tracking-tight text-white sm:text-6xl">
-            What's in the pack
-          </h2>
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--ink-dim)]">
-            Beginner Recording Pack v1.0
-          </span>
+        <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="font-display text-5xl uppercase tracking-tight text-white sm:text-6xl">
+              What's in the pack
+            </h2>
+            <span className="font-mono mt-2 block text-xs uppercase tracking-[0.3em] text-[var(--ink-dim)]">
+              Beginner Recording Pack v1.0
+            </span>
+          </div>
+
+          <div className="flex items-center gap-5">
+            <div className="text-right">
+              <span className="font-display block text-5xl leading-none text-accent-foil">
+                {PACK_PRICE}
+              </span>
+              <span className="font-mono mt-1 block text-[10px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
+                One-time &middot; instant download
+              </span>
+            </div>
+            <a
+              {...buyLinkProps}
+              className="font-mono inline-flex min-h-[44px] items-center whitespace-nowrap rounded-full bg-[var(--accent)] px-6 text-[11px] font-medium uppercase tracking-[0.2em] text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
+            >
+              Get the Pack
+            </a>
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">

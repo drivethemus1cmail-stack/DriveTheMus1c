@@ -8,6 +8,7 @@ import CompatibilityStrip from "./components/CompatibilityStrip";
 import Statement from "./components/Statement";
 import WaveformShowcase from "./components/WaveformShowcase";
 import IncludedTiles from "./components/IncludedTiles";
+import Services from "./components/Services";
 import ProcessSection from "./components/ProcessSection";
 import RightsSection from "./components/RightsSection";
 import MyMusic from "./components/MyMusic";
@@ -29,6 +30,7 @@ function HomePage() {
       <Statement />
       <WaveformShowcase />
       <IncludedTiles />
+      <Services />
       <ProcessSection />
       <RightsSection />
     </>
