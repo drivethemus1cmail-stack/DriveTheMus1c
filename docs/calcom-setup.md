@@ -127,10 +127,11 @@ with on the call.
 ## 4. In-Person Studio Setup — Santa Cruz Area
 
 - **Title:** `In-Person Studio Setup (Santa Cruz Area)`
-- **Slug:** `in-person`
-- **Duration:** 2 hours (block 3 to be safe)
-- **Price:** **$50 booking deposit** — balance due in person
-- **Location:** In Person → **Attendee address**
+- **Slug:** `in-person-studio-setup-santa-cruz-area`
+- **Duration:** 2 hours
+- **Price:** **$100 flat** (set by owner — simpler than a deposit plus a range,
+  and nobody gets an unexpected second bill)
+- **Location:** In Person → **Attendee address** ⚠️ currently set to Cal Video
 - **Requires confirmation:** **ON** — so you can check the location is in range before it's locked in
 
 **Description:**
@@ -142,10 +143,8 @@ Hardware, cabling, interface and driver install, speaker or headphone
 monitoring, FL Studio configured end to end, and a walkthrough so you can
 actually run it after I leave. Santa Cruz area only.
 
-PRICING: total is $100–$150 depending on how much gear is involved and how long
-it takes. You pay a $50 deposit to book; the balance is due in person once we've
-agreed the scope. Nothing is charged beyond the deposit without you agreeing to
-it first.
+PRICING: $100 for the two-hour visit, paid when you book. If the job turns out
+to be much bigger than that, I'll tell you before we start rather than after.
 
 Requests are confirmed manually — I'll check the location is within range and
 come back to you before the booking is locked in.

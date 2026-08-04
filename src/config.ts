@@ -27,39 +27,46 @@ export type Service = {
   id: string;
   name: string;
   price: string;
+  duration: string;
   blurb: string;
-  /** Stripe/Payhip checkout link. Empty falls back to an email enquiry. */
+  /** Cal.com booking link. Empty falls back to an email enquiry. */
   url: string;
 };
+
+const CAL = "https://cal.com/drivethemus1c";
 
 export const SERVICES: Service[] = [
   {
     id: "quick-fix",
     name: "Quick Fix Call",
     price: "$30",
+    duration: "30 min",
     blurb: "Short troubleshooting session for one specific issue — no signal, latency, a routing problem you can't crack.",
-    url: "",
+    url: `${CAL}/quick-fix-call`,
   },
   {
     id: "studio-setup",
     name: "Beginner Studio Setup Call",
     price: "$50",
+    duration: "60 min",
     blurb: "FL Studio settings, mic and interface, MIDI, plugins, vocal routing, exporting, and keeping your projects organised.",
-    url: "",
+    url: `${CAL}/beginner-studio-setup-call`,
   },
   {
     id: "first-song",
     name: "First Song Setup Session",
     price: "$75",
+    duration: "90 min",
     blurb: "Complete setup and recording workflow for your first song, start to finish.",
-    url: "",
+    url: `${CAL}/first-song-setup-session`,
   },
   {
     id: "in-person",
-    name: "Local In-Person Setup",
-    price: "$100–$150",
+    name: "In-Person Studio Setup",
+    price: "$100",
+    duration: "2 hours",
     blurb: "Santa Cruz–area studio or equipment setup, done in the room with you.",
-    url: "",
+    url: `${CAL}/in-person-studio-setup-santa-cruz-area`,
   },
 ];
 

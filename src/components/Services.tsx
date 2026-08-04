@@ -34,6 +34,9 @@ export default function Services() {
                     {service.price}
                   </span>
                 </div>
+                <span className="font-mono mt-1 block text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
+                  {service.duration}
+                </span>
                 <p className="mt-3 text-sm leading-relaxed text-[var(--ink-dim)]">{service.blurb}</p>
               </div>
 
@@ -41,7 +44,7 @@ export default function Services() {
                 {...serviceLinkProps(service)}
                 className="font-mono inline-flex min-h-[44px] w-full items-center justify-center rounded-full border border-[var(--accent)]/50 px-5 text-[11px] uppercase tracking-[0.2em] text-[var(--accent-hi)] transition-colors hover:bg-[var(--accent)] hover:text-[#1a1206]"
               >
-                Book this
+                Book &amp; pay
               </a>
             </article>
           ))}
