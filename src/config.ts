@@ -10,7 +10,7 @@ export const SUPPORT_EMAIL = "drivethemus1cmail@gmail.com";
  * Typed as `string` rather than inferred, so assigning a real URL doesn't
  * narrow the literal type and break the comparisons below.
  */
-export const PURCHASE_URL: string = "";
+export const PURCHASE_URL: string = "https://payhip.com/b/flZ2C";
 
 export const PACK_PRICE = "$15";
 
