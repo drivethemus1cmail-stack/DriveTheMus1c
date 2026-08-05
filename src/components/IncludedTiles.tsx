@@ -1,5 +1,6 @@
 import AlbumBackdrop from "./AlbumBackdrop";
 import { buyLinkProps, PACK_PRICE } from "../config";
+import Reveal from "./Reveal";
 
 type Tile = {
   tag: string;
@@ -69,10 +70,10 @@ export default function IncludedTiles() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {TILES.map((tile) => (
+          {TILES.map((tile, i) => (
+            <Reveal key={tile.name} index={i} className="h-full">
             <article
-              key={tile.name}
-              className="flex min-h-[260px] flex-col justify-end rounded-lg border border-white/10 p-7"
+              className="flex h-full min-h-[260px] flex-col justify-end rounded-lg border border-white/10 p-7"
               style={{ background: tile.bg }}
             >
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--accent-hi)]">
@@ -81,6 +82,7 @@ export default function IncludedTiles() {
               <h3 className="font-display mt-2 text-3xl uppercase text-white">{tile.name}</h3>
               <p className="mt-2 max-w-md text-sm leading-relaxed text-[var(--ink-dim)]">{tile.desc}</p>
             </article>
+            </Reveal>
           ))}
         </div>
       </div>

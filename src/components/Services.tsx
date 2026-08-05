@@ -1,4 +1,5 @@
 import { SERVICES, serviceLinkProps, SUPPORT_EMAIL } from "../config";
+import Reveal from "./Reveal";
 
 export default function Services() {
   return (
@@ -20,10 +21,10 @@ export default function Services() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {SERVICES.map((service) => (
+          {SERVICES.map((service, i) => (
+            <Reveal key={service.id} index={i} className="h-full">
             <article
-              key={service.id}
-              className="flex flex-col justify-between gap-6 rounded-lg border border-white/10 bg-[var(--panel)] p-7 transition-colors hover:border-[var(--accent)]/50"
+              className="flex h-full flex-col justify-between gap-6 rounded-lg border border-white/10 bg-[var(--panel)] p-7 transition-colors hover:border-[var(--accent)]/50"
             >
               <div>
                 <div className="flex items-baseline justify-between gap-4">
@@ -47,6 +48,7 @@ export default function Services() {
                 Book &amp; pay
               </a>
             </article>
+            </Reveal>
           ))}
         </div>
 

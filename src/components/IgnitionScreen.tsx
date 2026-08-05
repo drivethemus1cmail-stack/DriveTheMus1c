@@ -27,12 +27,15 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
   const [index, setIndex] = useState(0);
   const [dragAngle, setDragAngle] = useState<number | null>(null);
   const [phase, setPhase] = useState<Phase>("idle");
+  /** Once they've touched the switch the "Tap to start" hint is done for good. */
+  const [touched, setTouched] = useState(false);
 
   const indexRef = useRef(0);
   const ignitedRef = useRef(false);
   const autoRunRef = useRef(false);
   const timersRef = useRef<number[]>([]);
   const svgRef = useRef<SVGSVGElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const pressRef = useRef<{ x: number; y: number; t: number; moved: boolean } | null>(null);
 
   const reducedMotion =
@@ -43,11 +46,14 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
     return () => timers.forEach((t) => window.clearTimeout(t));
   }, []);
 
-  // hold the page still behind the overlay, and put focus on the switch
+  // Hold the page still behind the overlay and move focus into the dialog.
+  // Focus lands on the dialog itself, not the switch — focusing the switch
+  // programmatically trips :focus-visible, which painted a gold ring around it
+  // on load for every visitor. Tab still reaches the switch immediately.
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    svgRef.current?.focus();
+    dialogRef.current?.focus({ preventScroll: true });
     return () => {
       document.body.style.overflow = previous;
     };
@@ -129,6 +135,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
 
   const handlePointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
     if (ignitedRef.current) return;
+    setTouched(true);
     e.currentTarget.setPointerCapture(e.pointerId);
     pressRef.current = { x: e.clientX, y: e.clientY, t: performance.now(), moved: false };
   };
@@ -170,6 +177,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (ignitedRef.current) return;
+    setTouched(true);
     if (["Enter", " "].includes(e.key)) {
       e.preventDefault();
       runFullSequence();
@@ -193,7 +201,9 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
 
   return (
     <div
-      className={`fixed inset-0 z-[100] overflow-hidden bg-[var(--black)] ${
+      ref={dialogRef}
+      tabIndex={-1}
+      className={`fixed inset-0 z-[100] overflow-hidden bg-[var(--black)] outline-none ${
         phase === "exiting" ? "ignition-exit" : ""
       }`}
       role="dialog"
@@ -228,7 +238,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
         <svg
           ref={svgRef}
           viewBox="0 0 300 300"
-          className="h-[260px] w-[260px] touch-none select-none sm:h-[320px] sm:w-[320px]"
+          className="ignition-switch h-[260px] w-[260px] touch-none select-none rounded-full sm:h-[320px] sm:w-[320px]"
           style={{ cursor: ignitedRef.current ? "default" : "grab" }}
           role="slider"
           tabIndex={0}
@@ -301,18 +311,26 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
         <p className="font-display mt-8 text-2xl uppercase tracking-[0.2em] text-white" aria-live="polite">
           {status}
         </p>
-        <p className="font-mono mt-2 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
-          {ignitedRef.current ? "Pulling off" : autoRunRef.current ? "Starting" : "Tap to start"}
-        </p>
-
-        <button
-          type="button"
-          onClick={finish}
-          className="font-mono absolute bottom-8 inline-flex min-h-[44px] items-center rounded-full border border-white/15 px-6 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)] transition-colors hover:border-[var(--accent)] hover:text-white"
-        >
-          Skip intro
-        </button>
+        {touched ? (
+          <p className="font-mono mt-2 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
+            {ignitedRef.current ? "Pulling off" : "Starting"}
+          </p>
+        ) : (
+          <p className="font-mono tap-hint mt-2 text-[11px] uppercase tracking-[0.25em] text-[var(--accent-hi)]">
+            Tap to start
+          </p>
+        )}
       </div>
+
+      {/* Outside the centred column and above the dashboard, so it can't be
+          overlapped once the gauges light up. */}
+      <button
+        type="button"
+        onClick={finish}
+        className="font-mono absolute bottom-8 left-1/2 z-20 inline-flex min-h-[44px] -translate-x-1/2 items-center rounded-full border border-white/15 bg-[var(--black)]/80 px-6 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)] backdrop-blur transition-colors hover:border-[var(--accent)] hover:text-white"
+      >
+        Skip intro
+      </button>
     </div>
   );
 }
