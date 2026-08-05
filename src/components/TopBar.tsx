@@ -1,6 +1,7 @@
 import { buyLinkProps } from "../config";
 import { Link, useRouter } from "../router";
 import VolumeControl from "./VolumeControl";
+import Wordmark3D from "./Wordmark3D";
 
 const SESSION_DATE = new Date()
   .toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" })
@@ -35,9 +36,20 @@ export default function TopBar() {
       <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-y-3 px-6 py-3 sm:px-10">
         <Link
           to="/"
-          className="font-display mr-auto inline-flex min-h-[44px] items-center text-lg uppercase tracking-wide text-white sm:text-xl"
+          className="mr-auto inline-flex min-h-[44px] items-center"
+          aria-label="DriveTheMus1c — home"
         >
-          Drive<span className="text-accent-foil">The</span>Mus<span className="text-accent-foil">1</span>c
+          <Wordmark3D
+            spin
+            exposure={2.1}
+            className="h-[34px] w-[186px] sm:h-[38px] sm:w-[210px]"
+            fallback={
+              <span className="font-display text-lg uppercase tracking-wide text-white sm:text-xl">
+                Drive<span className="text-accent-foil">The</span>Mus
+                <span className="text-accent-foil">1</span>c
+              </span>
+            }
+          />
         </Link>
 
         <span className="font-mono mr-auto hidden text-[11px] uppercase tracking-[0.2em] text-[var(--ink-dim)] lg:block">
