@@ -142,17 +142,19 @@ export default function Wordmark3D({
           if (!animated) renderer.render(scene, camera);
         };
 
-        // Wait for layout before framing, or clientWidth can still be 0 and the
-        // fit maths lands on the wrong distance.
-        requestAnimationFrame(() => {
-          if (disposed) return;
-          redraw();
-          setReady(true);
-          if (animated) draw();
-        });
-
+        // Framing depends on the host's real size, which may not exist yet at
+        // this point — and if the camera is fitted against the default 300x150
+        // canvas the outer letters end up outside the frustum. ResizeObserver
+        // fires immediately on observe with the true size, and again on every
+        // change, so it is the reliable trigger. Don't gate this behind
+        // requestAnimationFrame: a background tab never delivers one, and the
+        // logo would stay unframed with the fallback showing forever.
         const resizeObs = new ResizeObserver(redraw);
         resizeObs.observe(host);
+
+        redraw();
+        setReady(true);
+        if (animated) draw();
 
         // Don't burn frames on something nobody can see.
         const visObs = new IntersectionObserver(([e]) => {
