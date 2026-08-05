@@ -1,5 +1,33 @@
 export const SUPPORT_EMAIL = "drivethemus1cmail@gmail.com";
 
+export type Track = {
+  id: string;
+  title: string;
+  credit: string;
+  /** Path under public/audio/ */
+  file: string;
+  /** Optional streaming link for the Save action. */
+  spotify?: string;
+};
+
+/**
+ * The player queue. Adding a track is a data edit — drop the mp3 into
+ * public/audio/ and add an entry here. Order is play order.
+ */
+export const TRACKS: Track[] = [
+  {
+    id: "southside",
+    title: "Southside",
+    credit: "Des1 with Yoniii · prod. Des1",
+    file: "southside-demo.mp3",
+    spotify: "https://open.spotify.com/track/3JHom2BG9jjsNReG3LcpHf",
+  },
+];
+
+export function trackUrl(track: Track) {
+  return `${import.meta.env.BASE_URL}audio/${track.file}`;
+}
+
 /**
  * Storefront product URL for the template pack (Payhip).
  *

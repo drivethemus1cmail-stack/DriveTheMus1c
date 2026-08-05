@@ -322,15 +322,18 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
         )}
       </div>
 
-      {/* Outside the centred column and above the dashboard, so it can't be
-          overlapped once the gauges light up. */}
-      <button
-        type="button"
-        onClick={finish}
-        className="font-mono absolute bottom-8 left-1/2 z-20 inline-flex min-h-[44px] -translate-x-1/2 items-center rounded-full border border-white/15 bg-[var(--black)]/80 px-6 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)] backdrop-blur transition-colors hover:border-[var(--accent)] hover:text-white"
-      >
-        Skip intro
-      </button>
+      {/* Only offered before the sequence starts. Once the key turns, the scene
+          plays out on its own — which also means it can never collide with the
+          dashboard lighting up. */}
+      {!touched && (
+        <button
+          type="button"
+          onClick={finish}
+          className="font-mono absolute bottom-8 left-1/2 z-20 inline-flex min-h-[44px] -translate-x-1/2 items-center rounded-full border border-white/15 bg-[var(--black)]/80 px-6 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)] backdrop-blur transition-colors hover:border-[var(--accent)] hover:text-white"
+        >
+          Skip intro
+        </button>
+      )}
     </div>
   );
 }

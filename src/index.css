@@ -171,13 +171,14 @@ html {
 .volume-slider {
   -webkit-appearance: none;
   appearance: none;
-  height: 22px;
+  height: 44px;
   background: transparent;
   cursor: pointer;
 }
 
 .volume-slider::-webkit-slider-runnable-track {
   height: 4px;
+  margin-block: 20px;
   border-radius: 999px;
   background: linear-gradient(
     to right,
@@ -210,6 +211,45 @@ html {
   height: 4px;
   border-radius: 999px;
   background: var(--accent-hi);
+}
+
+/* Seek bar: 44px tall for touch, but only the thumb is drawn — the visible
+   track is rendered behind it so the hit area can be generous. */
+.seek-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.seek-slider::-webkit-slider-runnable-track {
+  height: 44px;
+  background: transparent;
+}
+
+.seek-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 15px;
+  border-radius: 50%;
+  background: var(--accent-hi);
+  border: 2px solid var(--black);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.seek-slider::-moz-range-track {
+  height: 44px;
+  background: transparent;
+}
+
+.seek-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-hi);
+  border: 2px solid var(--black);
 }
 
 .volume-slider::-moz-range-thumb {

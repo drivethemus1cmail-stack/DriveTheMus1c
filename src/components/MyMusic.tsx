@@ -1,5 +1,6 @@
 import MotionMark from "./MotionMark";
 import AlbumBackdrop from "./AlbumBackdrop";
+import Player from "./Player";
 
 type LinkItem = {
   label: string;
@@ -57,7 +58,15 @@ export default function MyMusic() {
           </p>
         </div>
 
-        <ul className="mt-14 space-y-4">
+        <div className="mt-12">
+          <Player />
+        </div>
+
+        <h2 className="font-mono mt-16 text-center text-[11px] uppercase tracking-[0.35em] text-[var(--ink-dim)]">
+          Find me everywhere
+        </h2>
+
+        <ul className="mt-6 space-y-4">
           {LINKS.map((item) => (
             <li key={item.label}>
               <a

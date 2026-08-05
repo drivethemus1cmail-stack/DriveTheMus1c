@@ -50,7 +50,7 @@ export default function TopBar() {
               key={s.id}
               href={`/#${s.id}`}
               onClick={(e) => goToSection(e, s.id)}
-              className="font-mono hidden text-[11px] uppercase tracking-[0.2em] text-[var(--ink-dim)] transition-colors hover:text-white md:inline"
+              className="font-mono hidden min-h-[44px] items-center whitespace-nowrap text-[11px] uppercase tracking-[0.2em] text-[var(--ink-dim)] transition-colors hover:text-white md:inline-flex"
             >
               {s.label}
             </a>

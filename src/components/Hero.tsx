@@ -1,5 +1,5 @@
-import MotionMark from "./MotionMark";
 import LevelMeter from "./LevelMeter";
+import Wordmark3D from "./Wordmark3D";
 import { buyLinkProps, PACK_PRICE } from "../config";
 
 export default function Hero() {
@@ -12,14 +12,24 @@ export default function Hero() {
         Get to the session
       </span>
 
-      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center text-center">
-        <MotionMark className="mb-8 h-8 w-14" />
+      <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center text-center">
+        {/* The wordmark is the brand statement, so it gets the top slot and the
+            only motion in the hero. Falls back to the flat lockup. */}
+        <Wordmark3D
+          className="mb-10 h-24 w-full max-w-2xl sm:h-32"
+          fallback={
+            <span className="font-display text-4xl uppercase tracking-wide text-white sm:text-5xl">
+              Drive<span className="text-accent-foil">The</span>Mus
+              <span className="text-accent-foil">1</span>c
+            </span>
+          }
+        />
 
-        <span className="font-mono mb-6 text-xs uppercase tracking-[0.35em] text-[var(--ink-dim)]">
+        <span className="font-mono mb-5 text-xs uppercase tracking-[0.35em] text-[var(--ink-dim)]">
           FL Studio Templates &amp; Setup Help
         </span>
 
-        <h1 className="font-display text-6xl uppercase leading-[0.95] tracking-tight text-white sm:text-7xl">
+        <h1 className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-white sm:text-6xl">
           Driving music{" "}
           <span className="text-accent-foil">forward.</span>
         </h1>
