@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+// Type-only: erased at compile time, so three stays in its lazy chunk.
+import type { Mesh } from "three";
 
 /**
  * The 3D wordmark.
@@ -35,6 +37,13 @@ type Props = {
    * wide wordmark readable — the letters at the ends stop splaying outward.
    */
   fov?: number;
+  /**
+   * Black keyline thickness in model units. The tracking is tight enough that
+   * neighbouring letters' extruded sides merge into one another; an outline
+   * separates them and lifts the whole mark off the black background.
+   * 0 disables it.
+   */
+  outline?: number;
   className?: string;
 };
 
@@ -43,6 +52,7 @@ export default function Wordmark3D({
   motion = "static",
   exposure = 1.5,
   fov = 14,
+  outline = 0.05,
   className = "",
 }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -101,6 +111,39 @@ export default function Wordmark3D({
         const size = box.getSize(new THREE.Vector3());
         model.position.sub(centre);
 
+        // Inked keyline. Each mesh gets a sibling drawn with back faces only and
+        // its vertices pushed out along their normals, so the shell is visible
+        // exactly where it pokes beyond the real letter — a crisp black edge,
+        // no post-processing pass and no extra geometry uploaded.
+        if (outline > 0) {
+          const shellMat = new THREE.ShaderMaterial({
+            uniforms: { thickness: { value: outline } },
+            vertexShader: `
+              uniform float thickness;
+              void main() {
+                vec3 inflated = position + normalize(normal) * thickness;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(inflated, 1.0);
+              }
+            `,
+            fragmentShader: `
+              void main() { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); }
+            `,
+            side: THREE.BackSide,
+          });
+
+          const meshes: Mesh[] = [];
+          model.traverse((o) => {
+            const m = o as Mesh;
+            if (m.isMesh) meshes.push(m);
+          });
+          // collected first — mutating children mid-traverse would revisit them
+          for (const m of meshes) {
+            const shell = new THREE.Mesh(m.geometry, shellMat);
+            shell.renderOrder = -1;
+            m.add(shell);
+          }
+        }
+
         const pivot = new THREE.Group();
         pivot.add(model);
         scene.add(pivot);
@@ -120,11 +163,16 @@ export default function Wordmark3D({
         //   |x| <= (d - z) * tan(fov/2) * aspect   =>   d >= |x|/(tan*aspect) + z
         // Taking the max over all 8 bbox corners across the rotation range
         // yields a distance that cannot clip at any point in the animation.
+        // The keyline sits outside the letters, so fit against the inflated
+        // extent or the outline itself gets shaved at the edges.
+        const ex = size.x / 2 + outline;
+        const ey = size.y / 2 + outline;
+        const ez = size.z / 2 + outline;
+
         const corners: [number, number, number][] = [];
         for (const sx of [-1, 1])
           for (const sy of [-1, 1])
-            for (const sz of [-1, 1])
-              corners.push([(sx * size.x) / 2, (sy * size.y) / 2, (sz * size.z) / 2]);
+            for (const sz of [-1, 1]) corners.push([sx * ex, sy * ey, sz * ez]);
 
         const sweep = animated
           ? [-1, -0.5, 0, 0.5, 1].map((k) => (k * SWAY_DEGREES * Math.PI) / 180)
@@ -271,7 +319,7 @@ export default function Wordmark3D({
       disposed = true;
       cleanup?.();
     };
-  }, [motion, exposure, fov]);
+  }, [motion, exposure, fov, outline]);
 
   return (
     <div className={`relative ${className}`}>
