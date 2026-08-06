@@ -24,15 +24,22 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
       return;
     }
 
-    // Fail open. If the observer never reports — embedded webviews and some
-    // headless contexts don't deliver callbacks — the card would sit at
-    // opacity 0 permanently. Unstyled-but-visible beats invisible.
+    // Fail open, but only if the observer is genuinely dead. Some embedded
+    // webviews never deliver callbacks, and a card stuck at opacity 0 is far
+    // worse than a missed animation.
+    //
+    // The distinction matters: a working observer fires once shortly after
+    // observe() even when the element ISN'T intersecting. So any callback at
+    // all proves it's alive and cancels the timer. Cancelling only on
+    // isIntersecting — as this did originally — meant the timer always won for
+    // anything below the fold, revealing every card on load and defeating the
+    // whole effect.
     const failsafe = window.setTimeout(() => setShown(true), 1500);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        window.clearTimeout(failsafe);
         if (entry.isIntersecting) {
-          window.clearTimeout(failsafe);
           setShown(true);
           observer.unobserve(entry.target);
         }

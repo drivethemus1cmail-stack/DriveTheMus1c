@@ -40,8 +40,9 @@ export default function TopBar() {
           aria-label="DriveTheMus1c — home"
         >
           <Wordmark3D
-            spin
+            motion="sway"
             exposure={2.1}
+            fov={20}
             className="h-[34px] w-[186px] sm:h-[38px] sm:w-[210px]"
             fallback={
               <span className="font-display text-lg uppercase tracking-wide text-white sm:text-xl">

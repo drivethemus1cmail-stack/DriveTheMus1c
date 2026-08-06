@@ -16,7 +16,8 @@ export default function Hero() {
         {/* The wordmark is the brand statement, so it gets the top slot and the
             only motion in the hero. Falls back to the flat lockup. */}
         <Wordmark3D
-          exposure={2.1}
+          exposure={2.3}
+          fov={11}
           className="mb-10 h-24 w-full max-w-3xl sm:h-32"
           fallback={
             <span className="font-display text-4xl uppercase tracking-wide text-white sm:text-5xl">

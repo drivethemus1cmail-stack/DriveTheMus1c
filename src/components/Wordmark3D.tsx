@@ -13,22 +13,36 @@ import { useEffect, useRef, useState } from "react";
  */
 
 const MODEL_URL = `${import.meta.env.BASE_URL}models/drivethemus1c-wordmark.glb`;
-const SPIN_SECONDS = 14;
+
+/**
+ * Turn-and-return rather than a full revolution: past 90° the extrusion hides
+ * the faces and the word reads back-to-front. Swinging to a limit and easing
+ * back shows the depth and the light moving across the metal while the letters
+ * stay the right way round the whole time.
+ */
+const SWAY_DEGREES = 34;
+const SWAY_SECONDS = 11;
 
 type Props = {
   /** Shown until the model is ready, and permanently if it can't load. */
   fallback: React.ReactNode;
-  /** Continuous 360 rotation. Off renders a single static frame. */
-  spin?: boolean;
+  /** "sway" turns and returns; "static" renders one frame and stops. */
+  motion?: "static" | "sway";
   /** Tone-mapping exposure. Higher is brighter. */
   exposure?: number;
+  /**
+   * Vertical field of view. Small values flatten perspective, which keeps a
+   * wide wordmark readable — the letters at the ends stop splaying outward.
+   */
+  fov?: number;
   className?: string;
 };
 
 export default function Wordmark3D({
   fallback,
-  spin = false,
+  motion = "static",
   exposure = 1.5,
+  fov = 14,
   className = "",
 }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -58,7 +72,7 @@ export default function Wordmark3D({
         renderer.toneMappingExposure = exposure;
 
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 100);
+        const camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 200);
 
         // Gives the metal something to reflect. Without this it reads black.
         const pmrem = new THREE.PMREMGenerator(renderer);
@@ -98,30 +112,53 @@ export default function Wordmark3D({
           height: "100%",
         });
 
-        // Turning about Y sweeps the width-by-depth diagonal through the frame,
-        // so fit against that rather than width alone, or the first and last
-        // letters clip mid-rotation.
-        const halfW = spin ? Math.hypot(size.x / 2, size.z / 2) : size.x / 2;
-        const halfH = size.y / 2;
-        // Generous margin: the previous 1.18 was clipping the outer letters, and
-        // perspective means the near face is wider than the bounding box implies.
-        const PAD = 1.3;
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const animated = motion === "sway" && !reduced;
+
+        // Solve for the camera distance rather than padding a guess. For a
+        // corner at (x,y,z) to sit inside the frustum:
+        //   |x| <= (d - z) * tan(fov/2) * aspect   =>   d >= |x|/(tan*aspect) + z
+        // Taking the max over all 8 bbox corners across the rotation range
+        // yields a distance that cannot clip at any point in the animation.
+        const corners: [number, number, number][] = [];
+        for (const sx of [-1, 1])
+          for (const sy of [-1, 1])
+            for (const sz of [-1, 1])
+              corners.push([(sx * size.x) / 2, (sy * size.y) / 2, (sz * size.z) / 2]);
+
+        const sweep = animated
+          ? [-1, -0.5, 0, 0.5, 1].map((k) => (k * SWAY_DEGREES * Math.PI) / 180)
+          : [0];
+
+        const requiredDistance = (aspect: number) => {
+          const tanV = Math.tan((camera.fov * Math.PI) / 360);
+          let need = 0;
+          for (const a of sweep) {
+            const ca = Math.cos(a);
+            const sa = Math.sin(a);
+            for (const [x, y, z] of corners) {
+              const xr = x * ca + z * sa;
+              const zr = -x * sa + z * ca;
+              need = Math.max(
+                need,
+                Math.abs(xr) / (tanV * aspect) + zr,
+                Math.abs(y) / tanV + zr,
+              );
+            }
+          }
+          return need;
+        };
 
         const frame = () => {
           const w = Math.max(host.clientWidth, 1);
           const h = Math.max(host.clientHeight, 1);
           renderer.setSize(w, h, false);
           camera.aspect = w / h;
-          const tanV = Math.tan((camera.fov * Math.PI) / 360);
-          const distV = halfH / tanV;
-          const distH = halfW / (tanV * camera.aspect);
-          camera.position.set(0, 0, Math.max(distV, distH) * PAD);
+          // 4% breathing room so antialiasing at the extremes isn't shaved off
+          camera.position.set(0, 0, requiredDistance(camera.aspect) * 1.04);
           camera.lookAt(0, 0, 0);
           camera.updateProjectionMatrix();
         };
-
-        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const animated = spin && !reduced;
 
         let raf = 0;
         let visible = true;
@@ -131,7 +168,9 @@ export default function Wordmark3D({
           if (disposed) return;
           if (animated) {
             const t = (performance.now() - t0) / 1000;
-            pivot.rotation.y = ((t / SPIN_SECONDS) % 1) * Math.PI * 2;
+            // sine gives a soft hold at each extreme instead of a hard reversal
+            const phase = Math.sin((t / SWAY_SECONDS) * Math.PI * 2);
+            pivot.rotation.y = (phase * SWAY_DEGREES * Math.PI) / 180;
           }
           renderer.render(scene, camera);
           if (animated && visible) raf = requestAnimationFrame(draw);
@@ -232,7 +271,7 @@ export default function Wordmark3D({
       disposed = true;
       cleanup?.();
     };
-  }, [spin, exposure]);
+  }, [motion, exposure, fov]);
 
   return (
     <div className={`relative ${className}`}>
