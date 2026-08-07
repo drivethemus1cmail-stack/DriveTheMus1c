@@ -38,10 +38,9 @@ type Props = {
    */
   fov?: number;
   /**
-   * Black keyline thickness in model units. The tracking is tight enough that
-   * neighbouring letters' extruded sides merge into one another; an outline
-   * separates them and lifts the whole mark off the black background.
-   * 0 disables it.
+   * Black keyline thickness in model units. Scale it against the model's depth
+   * — the current wordmark is only 0.13 deep, so anything near the old 0.05
+   * reads as a heavy border rather than an edge. 0 disables it.
    */
   outline?: number;
   className?: string;
@@ -52,7 +51,7 @@ export default function Wordmark3D({
   motion = "static",
   exposure = 1.5,
   fov = 14,
-  outline = 0.05,
+  outline = 0.018,
   className = "",
 }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
