@@ -1,4 +1,4 @@
-import LevelMeter from "./LevelMeter";
+import RoadScene from "./RoadScene";
 import Wordmark3D from "./Wordmark3D";
 import { buyLinkProps, PACK_PRICE } from "../config";
 
@@ -57,7 +57,12 @@ export default function Hero() {
         </div>
       </div>
 
-      <LevelMeter className="mx-auto mt-16 h-16 w-full max-w-sm" />
+      {/* Full-bleed and flush to the section's bottom edge, so the road reads as
+          the ground the hero sits on rather than a graphic floating in padding.
+          Fixed heights (with slice) keep the car a sensible size on narrow
+          screens — letting a 1400x220 band scale to 375px wide would shrink it
+          to about 59px tall. */}
+      <RoadScene className="-mx-6 -mb-14 mt-14 h-[130px] sm:-mx-10 sm:h-[170px] lg:h-[210px]" />
     </section>
   );
 }

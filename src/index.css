@@ -16,6 +16,14 @@
   --ink-dim: #a89d8c;
   --warn: #d9463c;
 
+  /* Surfaces. Cards sit above the page; section bands sit just off it. These
+     were referenced by components but never declared after the palette was
+     reworked, which left those backgrounds transparent — a card with no
+     surface is invisible, so the tokens belong here rather than the usages
+     being rewritten. */
+  --panel: #141210;
+  --bg-2: #100f0d;
+
   --ease: 0.8s cubic-bezier(0.84, 0, 0.16, 1);
   --expo: cubic-bezier(0.87, 0, 0.13, 1);
   --smooth: cubic-bezier(0.76, 0, 0.24, 1);
@@ -138,6 +146,91 @@ html {
 
 .tap-hint {
   animation: tap-hint-pulse 2.4s ease-in-out infinite;
+}
+
+/* ── Hero road loop ─────────────────────────────────────────────────────────
+   Colours come from the brand tokens rather than the artwork's baked-in hex, so
+   the scene tracks the palette. Only transform and stroke-dashoffset animate. */
+.dtm-road {
+  line-height: 0;
+}
+
+.dtm-road .rd-edge {
+  stroke: #3a352e;
+  fill: none;
+}
+.dtm-road .rd-tile {
+  fill: #6f6353;
+}
+.dtm-road .rd-car {
+  stroke: var(--accent);
+}
+.dtm-road .rd-door-w {
+  fill: var(--off-white);
+}
+.dtm-road .rd-door-g,
+.dtm-road .rd-rule {
+  fill: var(--accent);
+}
+.dtm-road .rd-note-ink {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+
+.dtm-road .rd-dash {
+  animation: rd-scroll 1.4s linear infinite;
+}
+.dtm-road .rd-strip {
+  animation: rd-roll 1s linear infinite;
+  will-change: transform;
+}
+.dtm-road .rd-wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rd-spin 1.4s linear infinite;
+}
+.dtm-road .rd-body {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rd-bob 0.8s ease-in-out infinite;
+}
+.dtm-road .rd-nt {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rd-drift 3.4s linear infinite;
+  opacity: 0;
+}
+.dtm-road .rd-nt.b {
+  animation-name: rd-drift-b;
+}
+.dtm-road .rd-d1 { animation-delay: 0s; }
+.dtm-road .rd-d2 { animation-delay: 0.68s; }
+.dtm-road .rd-d3 { animation-delay: 1.36s; }
+.dtm-road .rd-d4 { animation-delay: 2.04s; }
+.dtm-road .rd-d5 { animation-delay: 2.72s; }
+
+@keyframes rd-scroll {
+  to { stroke-dashoffset: 252; }
+}
+@keyframes rd-roll {
+  to { transform: translateX(-180px); }
+}
+@keyframes rd-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes rd-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes rd-drift {
+  0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.72); }
+  14% { opacity: 0.8; }
+  100% { opacity: 0; transform: translate(-44px, -58px) rotate(14deg) scale(1); }
+}
+@keyframes rd-drift-b {
+  0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.72); }
+  14% { opacity: 0.68; }
+  100% { opacity: 0; transform: translate(-58px, -46px) rotate(-14deg) scale(1); }
 }
 
 /* Scroll reveal: transform + opacity only, long ease-out, settles without
@@ -277,6 +370,20 @@ html {
   .reveal-in {
     transition: none;
   }
+  /* The road holds a still frame rather than vanishing: notes stay where they
+     would have drifted to, so the composition still reads as motion. */
+  .dtm-road .rd-dash,
+  .dtm-road .rd-strip,
+  .dtm-road .rd-wheel,
+  .dtm-road .rd-body,
+  .dtm-road .rd-nt {
+    animation: none !important;
+  }
+  .dtm-road .rd-nt { opacity: 0.7; }
+  .dtm-road .rd-nt.s2 { transform: translate(-15px, -19px) rotate(5deg); opacity: 0.6; }
+  .dtm-road .rd-nt.s3 { transform: translate(-27px, -33px) rotate(-8deg); opacity: 0.46; }
+  .dtm-road .rd-nt.s4 { transform: translate(-37px, -46px) rotate(10deg); opacity: 0.32; }
+  .dtm-road .rd-nt.s5 { transform: translate(-46px, -57px) rotate(-13deg); opacity: 0.18; }
   .ignition-exit {
     opacity: 0;
     transition: opacity 200ms linear;

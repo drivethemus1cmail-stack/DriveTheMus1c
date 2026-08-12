@@ -104,7 +104,7 @@ export default function Player() {
           <h3 className="font-display mt-2 truncate text-4xl uppercase leading-none text-white">
             {track.title}
           </h3>
-          <p className="mt-2 truncate text-sm text-[var(--text)]">{track.artists}</p>
+          <p className="mt-2 truncate text-sm text-[var(--off-white)]">{track.artists}</p>
           <p className="font-mono mt-1 truncate text-[11px] uppercase tracking-[0.2em] text-[var(--ink-dim)]">
             {track.album} &middot; {track.year}
           </p>
