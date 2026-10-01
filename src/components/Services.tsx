@@ -39,6 +39,12 @@ export default function Services() {
                   {service.duration}
                 </span>
                 <p className="mt-3 text-sm leading-relaxed text-[var(--ink-dim)]">{service.blurb}</p>
+                {service.includesPack && (
+                  <p className="font-mono mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-[var(--accent-hi)]">
+                    <span aria-hidden="true">+</span>
+                    Beginner Recording Pack included free
+                  </p>
+                )}
               </div>
 
               <a

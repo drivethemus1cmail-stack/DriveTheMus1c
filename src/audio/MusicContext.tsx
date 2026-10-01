@@ -11,7 +11,7 @@ import {
 import { TRACKS, trackUrl, type Track } from "../config";
 
 /** Starts very quiet — it sits well under the page. The slider goes to 100% from here. */
-const DEFAULT_VOLUME = 0.05;
+const DEFAULT_VOLUME = 0.035;
 const FADE_MS = 1400;
 
 /** Fisher–Yates, returning a new array. */

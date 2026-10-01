@@ -43,7 +43,6 @@ export default function Player() {
   } = useMusic();
 
   const single = tracks.length < 2;
-  const pct = duration > 0 ? (currentTime / duration) * 100 : 0;
   const cover = artUrl(track);
 
   // Show the position being dragged rather than fighting the audio's own
@@ -118,10 +117,6 @@ export default function Player() {
             >
               <div className="h-full rounded-full bg-[var(--accent-hi)]" style={{ width: `${shownPct}%` }} />
             </div>
-            <div
-              className="pointer-events-none absolute top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-[var(--accent-hi)] shadow-[0_0_0_3px_var(--black)] transition-opacity"
-              style={{ left: `calc(${shownPct}% - 6px)`, opacity: pct > 0 || scrubbing ? 1 : 0 }}
-            />
             <input
               type="range"
               min={0}

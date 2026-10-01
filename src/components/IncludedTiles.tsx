@@ -59,6 +59,16 @@ export default function IncludedTiles() {
               <span className="font-mono mt-1 block text-[10px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
                 One-time &middot; instant download
               </span>
+              <a
+                href="#services"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="font-mono mt-2 block text-[10px] uppercase tracking-[0.2em] text-[var(--accent-hi)] underline-offset-4 hover:underline"
+              >
+                Free with select sessions &darr;
+              </a>
             </div>
             <a
               {...buyLinkProps}

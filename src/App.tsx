@@ -3,6 +3,7 @@ import { MusicProvider } from "./audio/MusicContext";
 import { RouterProvider, useRouter } from "./router";
 import IgnitionScreen from "./components/IgnitionScreen";
 import TopBar from "./components/TopBar";
+import ReplayIntroButton from "./components/ReplayIntroButton";
 import Hero from "./components/Hero";
 import CompatibilityStrip from "./components/CompatibilityStrip";
 import Statement from "./components/Statement";
@@ -49,12 +50,14 @@ function App() {
         {!ignitionDone && <IgnitionScreen key={introRun} onComplete={() => setIgnitionDone(true)} />}
 
         <div className="min-h-screen">
-          <TopBar onReplayIntro={replayIntro} />
+          <TopBar />
           <main>
             <Routes />
           </main>
           <Footer />
         </div>
+
+        {ignitionDone && <ReplayIntroButton onClick={replayIntro} />}
       </RouterProvider>
     </MusicProvider>
   );

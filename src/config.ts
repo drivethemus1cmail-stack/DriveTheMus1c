@@ -169,6 +169,8 @@ export type Service = {
   blurb: string;
   /** Cal.com booking link. Empty falls back to an email enquiry. */
   url: string;
+  /** The Beginner Recording Pack comes free with this session. */
+  includesPack?: boolean;
 };
 
 const CAL = "https://cal.com/drivethemus1c";
@@ -189,6 +191,7 @@ export const SERVICES: Service[] = [
     duration: "60 min",
     blurb: "FL Studio settings, mic and interface, MIDI, plugins, vocal routing, exporting, and keeping your projects organised.",
     url: `${CAL}/beginner-studio-setup-call`,
+    includesPack: true,
   },
   {
     id: "first-song",
@@ -197,6 +200,7 @@ export const SERVICES: Service[] = [
     duration: "90 min",
     blurb: "Complete setup and recording workflow for your first song, start to finish.",
     url: `${CAL}/first-song-setup-session`,
+    includesPack: true,
   },
   {
     id: "in-person",
