@@ -14,6 +14,7 @@ const PLAY = "M8 5.14v13.72L19 12z";
 const PAUSE = "M6 5h4v14H6zM14 5h4v14h-4z";
 const NEXT = "M6 5l9 7-9 7zM17 5h2.5v14H17z";
 const PREV = "M18 5l-9 7 9 7zM4.5 5H7v14H4.5z";
+const SHUFFLE = "M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z";
 const EXTERNAL = "M14 3h7v7h-2V6.41l-8.29 8.3-1.42-1.42 8.3-8.29H14zM5 5h5v2H7v10h10v-3h2v5H5z";
 
 /** Static bars that suggest a waveform without pretending to analyse the audio. */
@@ -37,8 +38,8 @@ function Bars({ active }: { active: boolean }) {
 
 export default function Player() {
   const {
-    playing, tracks, index, track, currentTime, duration,
-    toggle, next, prev, playAt, seek,
+    playing, tracks, index, track, currentTime, duration, shuffle,
+    toggle, next, prev, playAt, seek, toggleShuffle,
   } = useMusic();
 
   const single = tracks.length < 2;
@@ -146,6 +147,22 @@ export default function Player() {
           {/* Transport */}
           <div className="mt-4 flex items-center justify-between gap-3">
             <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={toggleShuffle}
+                disabled={single}
+                aria-pressed={shuffle}
+                aria-label="Shuffle"
+                title={shuffle ? "Shuffle on" : "Shuffle off"}
+                className={`relative inline-flex h-[44px] w-[44px] items-center justify-center rounded-full transition-colors hover:text-white disabled:pointer-events-none disabled:opacity-25 ${
+                  shuffle ? "text-[var(--accent-hi)]" : "text-[var(--ink-dim)]"
+                }`}
+              >
+                <Glyph d={SHUFFLE} />
+                {shuffle && (
+                  <span aria-hidden="true" className="absolute bottom-1.5 h-1 w-1 rounded-full bg-[var(--accent-hi)]" />
+                )}
+              </button>
               <button
                 type="button"
                 onClick={prev}

@@ -14,14 +14,6 @@ import RightsSection from "./components/RightsSection";
 import MyMusic from "./components/MyMusic";
 import Footer from "./components/Footer";
 
-function hasStartedBefore() {
-  try {
-    return sessionStorage.getItem("dtm-ignition-done") === "1";
-  } catch {
-    return false;
-  }
-}
-
 function HomePage() {
   return (
     <>
@@ -43,15 +35,21 @@ function Routes() {
 }
 
 function App() {
-  const [ignitionDone, setIgnitionDone] = useState(hasStartedBefore);
+  // The intro plays on every load; the header's replay button runs it again.
+  const [ignitionDone, setIgnitionDone] = useState(false);
+  const [introRun, setIntroRun] = useState(0);
+  const replayIntro = () => {
+    setIntroRun((n) => n + 1);
+    setIgnitionDone(false);
+  };
 
   return (
     <MusicProvider>
       <RouterProvider>
-        {!ignitionDone && <IgnitionScreen onComplete={() => setIgnitionDone(true)} />}
+        {!ignitionDone && <IgnitionScreen key={introRun} onComplete={() => setIgnitionDone(true)} />}
 
         <div className="min-h-screen">
-          <TopBar />
+          <TopBar onReplayIntro={replayIntro} />
           <main>
             <Routes />
           </main>

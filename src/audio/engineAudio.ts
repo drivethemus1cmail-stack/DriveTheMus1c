@@ -10,8 +10,14 @@ function getCtx(): AudioContext | null {
     if (!Ctor) return null;
     ctx = new Ctor();
   }
-  if (ctx.state === "suspended") void ctx.resume();
-  return ctx;
+  if (ctx.state === "running") return ctx;
+
+  void ctx.resume();
+  // Before the visitor has interacted, the browser keeps the context suspended
+  // and its clock frozen — anything scheduled now would all fire at once on
+  // their first click. Stay silent instead; the intro still plays visually.
+  const activated = navigator.userActivation?.hasBeenActive ?? true;
+  return activated ? ctx : null;
 }
 
 /** Short tactile tick as the key passes a detent. */

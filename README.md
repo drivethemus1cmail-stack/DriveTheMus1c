@@ -27,22 +27,29 @@ needed. See [the folder README](src/assets/covers/README.md).
 
 ## The ignition intro
 
-First visit opens on an ignition switch (`src/components/IgnitionScreen.tsx`).
-Turning the key to **ON** plays a chime and lights the dashboard; **START**
-cranks the engine, begins the demo track, and the screen pulls away to the
-landing page.
+Every page load opens on an ignition switch (`src/components/IgnitionScreen.tsx`)
+that turns itself: **ON** plays a chime and lights the dashboard, **START**
+cranks the engine and begins the music, and the screen pulls away to the
+landing page. The replay button in the header runs it again.
 
-- Shows once per session (`sessionStorage`), and can be skipped.
+- Can be skipped at any point.
 - Collapses to an instant transition under `prefers-reduced-motion`.
 - Chime, detent clicks, and starter crank are synthesized with Web Audio
-  (`src/audio/engineAudio.ts`) — no audio files beyond the demo track.
-- The demo track plays quietly and can be muted from the header at any time.
+  (`src/audio/engineAudio.ts`) — no audio files beyond the songs.
+- Browsers block sound until a visitor has interacted with the page, so on a
+  first visit the intro may play silently; the music then starts on their
+  first click or key press.
 
-## Audio asset
+## Music
 
-`public/audio/southside-demo.mp3` is a 128 kbps encode of the pack's demo
-track. The source is a 42.8 MB 32-bit float WAV; keep the compressed copy in
-the repo rather than the original.
+The player queue in [`src/config.ts`](src/config.ts) mirrors Des1's Spotify
+catalogue. SOUTHSIDE always plays first; with shuffle on (the default) the rest
+follow in a random order. Music starts at 5% volume and can be muted or turned
+up from the header.
+
+Songs in `public/audio/` are 128 kbps MP3 encodes of the masters — keep
+compressed copies in the repo, not the WAVs. Covers in `public/art/` come from
+Spotify.
 
 ## Stack
 

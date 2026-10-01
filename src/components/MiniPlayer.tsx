@@ -56,7 +56,7 @@ export default function MiniPlayer() {
       {/* Title block — desktop only; the cover carries the identity on mobile. */}
       <span className="hidden min-w-0 flex-col leading-tight lg:flex">
         <span className="font-mono truncate text-[10px] uppercase tracking-[0.2em] text-[var(--accent-hi)]">
-          {!started ? "Play demo" : playing ? "Now playing" : "Paused"}
+          {!started ? "Play music" : playing ? "Now playing" : "Paused"}
         </span>
         <span className="max-w-[128px] truncate text-[11px] font-medium text-white">{track.title}</span>
       </span>
@@ -84,14 +84,14 @@ export default function MiniPlayer() {
       </button>
 
       <label className="hidden items-center sm:flex">
-        <span className="sr-only">Demo track volume</span>
+        <span className="sr-only">Music volume</span>
         <input
           type="range"
           min={0}
           max={100}
           value={Math.round(volume * 100)}
           onChange={(e) => setVolume(Number(e.target.value) / 100)}
-          aria-label="Demo track volume"
+          aria-label="Music volume"
           className="volume-slider w-16 lg:w-20"
           style={{ ["--fill" as string]: `${Math.round(volume * 100)}%` }}
         />

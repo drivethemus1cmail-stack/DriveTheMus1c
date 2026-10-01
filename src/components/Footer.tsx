@@ -1,5 +1,5 @@
 import MotionMark from "./MotionMark";
-import { buyLinkProps, PACK_PRICE } from "../config";
+import { buyLinkProps, INSTAGRAM_URL, PACK_PRICE } from "../config";
 
 export default function Footer() {
   return (
@@ -21,6 +21,14 @@ export default function Footer() {
           className="font-display border border-white/15 px-8 py-3 text-lg uppercase tracking-wide text-white transition-colors hover:border-[var(--accent)] hover:text-[var(--accent-hi)]"
         >
           Contact
+        </a>
+        <a
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-display border border-white/15 px-8 py-3 text-lg uppercase tracking-wide text-white transition-colors hover:border-[var(--accent)] hover:text-[var(--accent-hi)]"
+        >
+          Instagram
         </a>
       </div>
 

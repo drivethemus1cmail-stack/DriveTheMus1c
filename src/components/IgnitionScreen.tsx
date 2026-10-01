@@ -13,6 +13,8 @@ const POSITIONS = [
 const CRANK_MS = 1250;
 const HOLD_MS = 2350;
 const EXIT_MS = 820;
+/** A beat on the dark dash before the key turns by itself. */
+const AUTO_START_MS = 600;
 
 function polar(cx: number, cy: number, r: number, deg: number) {
   const a = (deg * Math.PI) / 180;
@@ -27,8 +29,6 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
   const [index, setIndex] = useState(0);
   const [dragAngle, setDragAngle] = useState<number | null>(null);
   const [phase, setPhase] = useState<Phase>("idle");
-  /** Once they've touched the switch the "Tap to start" hint is done for good. */
-  const [touched, setTouched] = useState(false);
 
   const indexRef = useRef(0);
   const ignitedRef = useRef(false);
@@ -60,11 +60,6 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
   }, []);
 
   const finish = useCallback(() => {
-    try {
-      sessionStorage.setItem("dtm-ignition-done", "1");
-    } catch {
-      /* private mode — just continue */
-    }
     onComplete();
   }, [onComplete]);
 
@@ -124,6 +119,19 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
     push(() => goTo(3), 1050);
   }, [goTo]);
 
+  // The intro plays on its own as soon as the site loads. Its own timer (rather
+  // than timersRef) so StrictMode's mount/unmount/mount in dev can't strand it.
+  useEffect(() => {
+    const t = window.setTimeout(runFullSequence, AUTO_START_MS);
+    return () => window.clearTimeout(t);
+  }, [runFullSequence]);
+
+  /** Skipping is a click, so it's also the moment the browser will allow music. */
+  const skip = () => {
+    startMusic();
+    finish();
+  };
+
   const angleFromPointer = useCallback((clientX: number, clientY: number) => {
     const el = svgRef.current;
     if (!el) return 0;
@@ -135,7 +143,6 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
 
   const handlePointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
     if (ignitedRef.current) return;
-    setTouched(true);
     e.currentTarget.setPointerCapture(e.pointerId);
     pressRef.current = { x: e.clientX, y: e.clientY, t: performance.now(), moved: false };
   };
@@ -177,7 +184,6 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (ignitedRef.current) return;
-    setTouched(true);
     if (["Enter", " "].includes(e.key)) {
       e.preventDefault();
       runFullSequence();
@@ -311,24 +317,16 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
         <p className="font-display mt-8 text-2xl uppercase tracking-[0.2em] text-white" aria-live="polite">
           {status}
         </p>
-        {touched ? (
-          <p className="font-mono mt-2 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
-            {ignitedRef.current ? "Pulling off" : "Starting"}
-          </p>
-        ) : (
-          <p className="font-mono tap-hint mt-2 text-[11px] uppercase tracking-[0.25em] text-[var(--accent-hi)]">
-            Tap to start
-          </p>
-        )}
+        <p className="font-mono mt-2 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
+          {ignitedRef.current ? "Pulling off" : "Starting"}
+        </p>
       </div>
 
-      {/* Only offered before the sequence starts. Once the key turns, the scene
-          plays out on its own — which also means it can never collide with the
-          dashboard lighting up. */}
-      {!touched && (
+      {/* Offered for the whole scene, since it now starts by itself. */}
+      {phase !== "exiting" && (
         <button
           type="button"
-          onClick={finish}
+          onClick={skip}
           className="font-mono absolute bottom-8 left-1/2 z-20 inline-flex min-h-[44px] -translate-x-1/2 items-center rounded-full border border-white/15 bg-[var(--black)]/80 px-6 text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)] backdrop-blur transition-colors hover:border-[var(--accent)] hover:text-white"
         >
           Skip intro

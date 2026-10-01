@@ -138,16 +138,6 @@ html {
   border-radius: 50%;
 }
 
-/* "Tap to start" — one soft pulse, removed from the DOM on first interaction */
-@keyframes tap-hint-pulse {
-  0%, 100% { opacity: 0.45; }
-  50% { opacity: 1; }
-}
-
-.tap-hint {
-  animation: tap-hint-pulse 2.4s ease-in-out infinite;
-}
-
 /* Scroll reveal: transform + opacity only, long ease-out, settles without
    overshoot. Siblings are staggered via an inline --reveal-delay. */
 .reveal {
@@ -274,8 +264,7 @@ html {
     transform: scaleY(0.7);
   }
   .ignition-exit,
-  .skrt-streak,
-  .tap-hint {
+  .skrt-streak {
     animation: none;
   }
   .reveal {

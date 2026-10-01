@@ -15,10 +15,17 @@ export type Track = {
   spotify?: string;
 };
 
+export const INSTAGRAM_URL = "https://www.instagram.com/drivethemus1c/";
+
+export const SPOTIFY_ARTIST_URL = "https://open.spotify.com/artist/67pRRvppBtBYqkUVVCJCSt";
+
+const SPOTIFY_TRACK = "https://open.spotify.com/track/";
+
 /**
- * The player queue. Adding a track is a data edit: drop the mp3 into
- * public/audio/, the square cover into public/art/, and add an entry here.
- * Order is play order.
+ * The player queue — Des1's Spotify catalogue. Adding a track is a data edit:
+ * drop the mp3 into public/audio/, the square cover into public/art/, and add
+ * an entry here. The first entry always plays first; with shuffle on (the
+ * default) the rest follow in a random order.
  */
 export const TRACKS: Track[] = [
   {
@@ -29,7 +36,97 @@ export const TRACKS: Track[] = [
     year: "2026",
     file: "southside-demo.mp3",
     art: "southside.jpg",
-    spotify: "https://open.spotify.com/track/3JHom2BG9jjsNReG3LcpHf",
+    spotify: `${SPOTIFY_TRACK}3JHom2BG9jjsNReG3LcpHf`,
+  },
+  {
+    id: "wreck",
+    title: "Wreck",
+    artists: "Des1",
+    album: "Wreck",
+    year: "2026",
+    file: "wreck.mp3",
+    art: "wreck.jpg",
+    spotify: `${SPOTIFY_TRACK}5jexKaAuzCFDGiSd8g3Unq`,
+  },
+  {
+    id: "hitafterhit",
+    title: "HitAfterHit",
+    artists: "Des1",
+    album: "THE VAULT 1.0",
+    year: "2026",
+    file: "hitafterhit.mp3",
+    art: "the-vault-1.jpg",
+    spotify: `${SPOTIFY_TRACK}3dXIOC4BG2ye3xyru73YFg`,
+  },
+  {
+    id: "great-day",
+    title: "Great Day",
+    artists: "Des1",
+    album: "Great Day",
+    year: "2026",
+    file: "great-day.mp3",
+    art: "great-day.jpg",
+    spotify: `${SPOTIFY_TRACK}72nDEKtdUuZDDU2o5skuPm`,
+  },
+  {
+    id: "back-in",
+    title: "Back In",
+    artists: "Des1",
+    album: "Back In",
+    year: "2026",
+    file: "back-in.mp3",
+    art: "back-in.jpg",
+    spotify: `${SPOTIFY_TRACK}05wZa6zSHEWB6OO3R0GUl9`,
+  },
+  {
+    id: "not-enough",
+    title: "Not Enough",
+    artists: "Des1",
+    album: "THE VAULT 1.0",
+    year: "2026",
+    file: "not-enough.mp3",
+    art: "the-vault-1.jpg",
+    spotify: `${SPOTIFY_TRACK}6dekT1sqtPRH2cCP9JylPZ`,
+  },
+  {
+    id: "dont-turn-into-a-fein",
+    title: "DontTurnIntoAFein",
+    artists: "Des1",
+    album: "THE VAULT 1.0",
+    year: "2026",
+    file: "dont-turn-into-a-fein.mp3",
+    art: "the-vault-1.jpg",
+    spotify: `${SPOTIFY_TRACK}5sayk8GtH17BgHrRhW97O7`,
+  },
+  {
+    id: "last-day",
+    title: "Last Day",
+    artists: "Des1",
+    album: "Dont Wait",
+    year: "2026",
+    file: "last-day.mp3",
+    art: "dont-wait-ep.jpg",
+    spotify: `${SPOTIFY_TRACK}4DHZa9MxjDfEfJrXpunUq4`,
+  },
+  {
+    id: "dont-wait",
+    title: "Dont Wait",
+    artists: "Des1",
+    album: "Dont Wait",
+    year: "2026",
+    file: "dont-wait.mp3",
+    art: "dont-wait-ep.jpg",
+    spotify: `${SPOTIFY_TRACK}7kdcTBGMFGxyHRmAlrB0Im`,
+  },
+  {
+    id: "all-day",
+    title: "All Day",
+    artists: "Des1",
+    album: "Dont Wait",
+    year: "2026",
+    file: "all-day.mp3",
+    art: "dont-wait-ep.jpg",
+    spotify: `${SPOTIFY_TRACK}1oRsgf9WdEADGLQ1jnlyeb`,
   },
 ];
 

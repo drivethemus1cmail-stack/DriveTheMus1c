@@ -32,7 +32,9 @@ const NAV_SECTIONS = [
   { id: "services", label: "Services" },
 ];
 
-export default function TopBar() {
+const REPLAY = "M12 5V2L7 6l5 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z";
+
+export default function TopBar({ onReplayIntro }: { onReplayIntro: () => void }) {
   const { path, navigate } = useRouter();
   const wide = useMinWidth("(min-width: 640px)");
 
@@ -101,6 +103,19 @@ export default function TopBar() {
               {s.label}
             </a>
           ))}
+
+          <button
+            type="button"
+            onClick={onReplayIntro}
+            aria-label="Replay intro"
+            title="Replay intro"
+            className="font-mono inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 whitespace-nowrap text-[11px] uppercase tracking-[0.2em] text-[var(--ink-dim)] transition-colors hover:text-white"
+          >
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+              <path d={REPLAY} />
+            </svg>
+            <span className="hidden xl:inline">Intro</span>
+          </button>
 
           <Link
             to="/music"
