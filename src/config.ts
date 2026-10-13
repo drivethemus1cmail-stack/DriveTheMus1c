@@ -150,7 +150,9 @@ export function artUrl(track: Track) {
  */
 export const PURCHASE_URL: string = "https://payhip.com/b/flZ2C";
 
-export const PACK_PRICE = "$15";
+export const PACK_NAME = "Base FL Studio Preset";
+
+export const PACK_PRICE = "$50";
 
 type BuyLink = { href: string; target?: "_blank"; rel?: string };
 
@@ -165,64 +167,87 @@ export type Service = {
   id: string;
   name: string;
   price: string;
-  duration: string;
+  /** Length and where it happens, e.g. "30 min · Online". */
+  format: string;
   blurb: string;
-  /** Cal.com booking link. Empty falls back to an email enquiry. */
+  /** What the client walks away with. */
+  includes: string[];
+  /**
+   * Cal.com booking link, shown after someone signs up so they can pick a
+   * time straight away. Empty means "I'll reach out to schedule" instead.
+   */
   url: string;
-  /** The Beginner Recording Pack comes free with this session. */
-  includesPack?: boolean;
 };
 
-const CAL = "https://cal.com/drivethemus1c";
-
+/**
+ * The offer. Every option builds a custom vocal preset tuned to the client's
+ * voice — live on a call, from a recording they send in, or in their studio. Signing up goes through /start, which writes
+ * the client into the CRM before they book.
+ */
 export const SERVICES: Service[] = [
   {
-    id: "quick-fix",
-    name: "Quick Fix Call",
-    price: "$30",
-    duration: "30 min",
-    blurb: "Short troubleshooting session for one specific issue — no signal, latency, a routing problem you can't crack.",
-    url: `${CAL}/quick-fix-call`,
-  },
-  {
-    id: "studio-setup",
-    name: "Beginner Studio Setup Call",
+    id: "online",
+    name: "Online Custom Mix Session",
     price: "$50",
-    duration: "60 min",
-    blurb: "FL Studio settings, mic and interface, MIDI, plugins, vocal routing, exporting, and keeping your projects organised.",
-    url: `${CAL}/beginner-studio-setup-call`,
-    includesPack: true,
+    format: "30 min · Online",
+    blurb:
+      "We get on a screen-share and build your vocal preset live, tuned to your voice, your mic, and your room. You leave with a chain that sounds like you, not a template.",
+    includes: [
+      "Custom vocal preset built on the call",
+      "Saved to your FL Studio so you can reuse it",
+      "Levels and recording settings checked",
+    ],
+    url: "",
   },
   {
-    id: "first-song",
-    name: "First Song Setup Session",
-    price: "$75",
-    duration: "90 min",
-    blurb: "Complete setup and recording workflow for your first song, start to finish.",
-    url: `${CAL}/first-song-setup-session`,
-    includesPack: true,
+    id: "send-in",
+    name: "Send-In Custom Mix",
+    price: "$50",
+    format: "No call · Sent back to you",
+    blurb:
+      "Rather not get on a call? Send me a recording of how you sound and tell me who you want to sound like. I build your preset from it and send it back ready to load.",
+    includes: [
+      "Custom vocal preset built from your recording",
+      "Aimed at the artist or sound you name",
+      "Sent back ready to load in FL Studio",
+    ],
+    url: "",
   },
   {
     id: "in-person",
-    name: "In-Person Studio Setup",
-    price: "$100",
-    duration: "2 hours",
-    blurb: "Santa Cruz–area studio or equipment setup, done in the room with you.",
-    url: `${CAL}/in-person-studio-setup-santa-cruz-area`,
+    name: "In-Person Studio Session",
+    price: "$150–200",
+    format: "In person · Santa Cruz area",
+    blurb:
+      "I come to your space. We dial in your custom vocal mix and sort out the studio itself — hardware, cabling, drivers, monitoring, whatever's not working.",
+    includes: [
+      "Custom vocal preset built in the room",
+      "Studio setup and troubleshooting",
+      "Price confirmed before I come out, based on the job",
+    ],
+    url: "",
   },
 ];
 
-/**
- * Booking link for a service. Until checkout links exist, this opens a
- * pre-filled email so sessions are still bookable rather than dead.
- */
-export function serviceLinkProps(service: Service): BuyLink {
-  if (service.url) {
-    return { href: service.url, target: "_blank", rel: "noopener noreferrer" };
-  }
-  const subject = encodeURIComponent(`${service.name} (${service.price})`);
-  const body = encodeURIComponent(
-    `Hi, I'd like to book the ${service.name}.\n\nWhat I'm stuck on:\n\nMy DAW / FL Studio version:\nMy audio interface:\nMy operating system:\n`,
-  );
-  return { href: `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}` };
+/** Services where the client sends a recording instead of meeting. */
+export function isSendIn(service: Service) {
+  return service.id === "send-in";
 }
+
+export function findService(id: string | null | undefined) {
+  return SERVICES.find((s) => s.id === id);
+}
+
+/** The sign-up page, optionally with a session pre-selected. */
+export function signupPath(service?: Service) {
+  return service ? `/start?service=${service.id}` : "/start";
+}
+
+/**
+ * Google Apps Script web app that appends sign-ups to the CRM sheet. Setup is
+ * in docs/crm-setup.md.
+ *
+ * Leave empty until it's deployed — the sign-up form then opens a pre-filled
+ * email instead, so nobody is turned away in the meantime.
+ */
+export const CRM_ENDPOINT: string = "";

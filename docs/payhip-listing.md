@@ -1,4 +1,4 @@
-# Payhip listing — DriveTheMus1c Beginner Recording Pack
+# Payhip listing — DriveTheMus1c Base FL Studio Preset
 
 Paste-ready copy for the Payhip product page. Everything here is drawn from the
 actual pack contents. Nothing is invented — no fake testimonials, no numbers
@@ -9,7 +9,7 @@ that aren't real. Fill the two `[BRACKETED]` bits yourself.
 ## Product name
 
 ```
-DriveTheMus1c — Beginner Recording Pack for FL Studio
+DriveTheMus1c — Base FL Studio Preset (Vocal Recording Template)
 ```
 
 ## Short description / tagline
@@ -25,16 +25,13 @@ so your first session is spent recording, not troubleshooting.
 
 ## Price
 
-**$15** — set by the owner.
+**$50** — set by the owner (October 2026, up from $15 as part of the move to
+higher-ticket offers). Same Payhip listing and link as before; change the price
+and, ideally, the product name above in Payhip so they match the site.
 
-Deliberately positioned as the entry point of a ladder rather than the main
-product. The pack is the cheap thing that proves the help is worth paying for;
-the calls ($30–$150) are where the margin is. Priced this way, an unsure buyer
-has almost no reason not to try it.
-
-Worth revisiting once there are testimonials or a demo video — those are what
-justify a higher number later. Raising a price on new buyers is fine; lowering
-it after early buyers paid more is not, so starting low is the safe direction.
+It sits at the same price as the custom sessions ($50 online or send-in), which
+makes the custom option the obvious better deal for most buyers — the preset is
+for people who specifically want to set things up themselves.
 
 ---
 
@@ -117,17 +114,17 @@ Projects saved in a newer FL Studio version may not open in an older one.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-STILL STUCK? GET ON A CALL
+WANT IT TUNED TO YOUR VOICE?
 
-The pack covers the setup. If something still won't work, you can book time
-with me directly instead of digging through forum threads:
+The pack is a solid general-purpose chain. If you want one built around your
+voice, mic and room, we can build it together, live:
 
-• $30  — Quick Fix Call: one specific issue, sorted.
-• $50  — Beginner Studio Setup Call: FL Studio settings, mic/interface, MIDI,
-         plugins, vocal routing, exporting, and organisation.
-• $75  — First Song Setup Session: complete setup and recording workflow for
-         your first song.
-• $100–$150 — Local In-Person Setup: Santa Cruz-area studio or equipment setup.
+• $50 — Online Custom Mix Session (30 min): your vocal preset built on a
+         screen-share call.
+• $50 — Send-In Custom Mix: no call. Send a recording of your voice and who
+         you want to sound like; your preset comes back ready to load.
+• $150–200 — In-Person Studio Session: custom preset plus studio setup and
+         troubleshooting, Santa Cruz area.
 
 Details at drivethemus1c.com
 

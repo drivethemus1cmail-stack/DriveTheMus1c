@@ -1,4 +1,4 @@
-const ITEMS = ["FL Studio 25.2.5+", "Stock plugins only", ".flp + .fst files", "One-time purchase"];
+const ITEMS = ["Call or send-in", "Tuned to your voice", "FL Studio", "Online or Santa Cruz"];
 
 export default function CompatibilityStrip() {
   return (

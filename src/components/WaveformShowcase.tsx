@@ -7,16 +7,16 @@ function barHeight(i: number) {
 
 const CARDS = [
   {
-    title: "Pre-routed signal chain",
-    body: "Mic → Main Input → Main Vocal → Master, already wired so a dry vocal never doubles up on the master by accident.",
+    title: "Tuned to your voice",
+    body: "EQ, compression, de-essing, and space set while you sing into it — not guessed from someone else's vocal.",
   },
   {
-    title: "Drag-and-drop presets",
-    body: "Main Vocal, Doubles, and Ad-lib chains as .fst files — drop one on a blank insert and you're recording.",
+    title: "Your mic, your room",
+    body: "A chain dialed for the gear you actually own and the space you actually record in.",
   },
   {
-    title: "Built to stay clean",
-    body: "Stock plugins only for the Base Version. Open it fresh with zero missing-plugin warnings.",
+    title: "Yours to keep",
+    body: "Saved as a preset in your DAW, so every session after starts with your sound already loaded.",
   },
 ];
 

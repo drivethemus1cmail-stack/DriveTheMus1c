@@ -1,4 +1,5 @@
-import { SERVICES, serviceLinkProps, SUPPORT_EMAIL } from "../config";
+import { isSendIn, SERVICES, signupPath, SUPPORT_EMAIL } from "../config";
+import { Link } from "../router";
 import Reveal from "./Reveal";
 
 export default function Services() {
@@ -11,49 +12,47 @@ export default function Services() {
               Work With Me
             </span>
             <h2 className="mt-3 font-display text-5xl uppercase tracking-tight text-white sm:text-6xl">
-              Stuck? Get on a call
+              Your vocal mix, built for you
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-[var(--ink-dim)]">
-            The pack covers the setup. When something still won&rsquo;t work, you can book time
-            with me directly instead of digging through forum threads.
+            A template is built for everyone, so it fits nobody exactly. I build the chain around
+            your voice &mdash; live on a call, from a recording you send in, or in your studio.
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {SERVICES.map((service, i) => (
             <Reveal key={service.id} index={i} className="h-full">
-            <article
-              className="flex h-full flex-col justify-between gap-6 rounded-lg border border-white/10 bg-[var(--panel)] p-7 transition-colors hover:border-[var(--accent)]/50"
-            >
-              <div>
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-display text-2xl uppercase leading-tight text-white">
-                    {service.name}
-                  </h3>
-                  <span className="font-display shrink-0 text-3xl text-accent-foil">
-                    {service.price}
+              <article className="flex h-full flex-col justify-between gap-8 rounded-lg border border-white/10 bg-[var(--panel)] p-7 transition-colors hover:border-[var(--accent)]/50 sm:p-9">
+                <div>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h3 className="font-display text-3xl uppercase leading-tight text-white">{service.name}</h3>
+                    <span className="font-display shrink-0 text-4xl text-accent-foil">{service.price}</span>
+                  </div>
+                  <span className="font-mono mt-1 block text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
+                    {service.format}
                   </span>
+                  <p className="mt-4 leading-relaxed text-[var(--ink-dim)]">{service.blurb}</p>
+                  <ul className="mt-6 space-y-2.5">
+                    {service.includes.map((item) => (
+                      <li key={item} className="flex gap-3 text-sm text-white">
+                        <span aria-hidden="true" className="text-[var(--accent-hi)]">
+                          +
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <span className="font-mono mt-1 block text-[11px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
-                  {service.duration}
-                </span>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--ink-dim)]">{service.blurb}</p>
-                {service.includesPack && (
-                  <p className="font-mono mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-[var(--accent-hi)]">
-                    <span aria-hidden="true">+</span>
-                    Beginner Recording Pack included free
-                  </p>
-                )}
-              </div>
 
-              <a
-                {...serviceLinkProps(service)}
-                className="font-mono inline-flex min-h-[44px] w-full items-center justify-center rounded-full border border-[var(--accent)]/50 px-5 text-[11px] uppercase tracking-[0.2em] text-[var(--accent-hi)] transition-colors hover:bg-[var(--accent)] hover:text-[#1a1206]"
-              >
-                Book &amp; pay
-              </a>
-            </article>
+                <Link
+                  to={signupPath(service)}
+                  className="font-mono inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-[var(--accent)] px-5 text-[11px] font-medium uppercase tracking-[0.2em] text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
+                >
+                  {isSendIn(service) ? "Send it in" : "Sign up"}
+                </Link>
+              </article>
             </Reveal>
           ))}
         </div>
@@ -66,8 +65,7 @@ export default function Services() {
           >
             {SUPPORT_EMAIL}
           </a>{" "}
-          and describe what&rsquo;s going wrong &mdash; I&rsquo;ll tell you straight if a call
-          isn&rsquo;t worth it.
+          and tell me about your setup &mdash; I&rsquo;ll point you to the right one.
         </p>
       </div>
     </section>

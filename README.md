@@ -1,8 +1,10 @@
 # DriveTheMus1c
 
-Marketing site for the DriveTheMus1c Beginner Recording Pack — a pre-routed
-FL Studio vocal template, mixer presets, and setup guide for artists who are
-new to recording.
+Site for DriveTheMus1c custom vocal mixes — a vocal preset built around the
+client's voice, mic and room: live on a $50 online call, from a recording they
+send in ($50, no call), or in person around Santa Cruz ($150–200, with studio
+setup). The Base FL Studio Preset ($50, the recording template, sold through
+the existing Payhip listing) stays on the page as the DIY option.
 
 ## Running it
 
@@ -13,10 +15,19 @@ npm run build    # production build to dist/
 npm run preview  # serve the built site on :4173
 ```
 
-## Going live
+## Clients and sign-ups
+
+`/start` is the sign-up page; every "Book" and "Sign up" button leads there.
+Submissions go to a Google Sheet CRM through an Apps Script web app — set it up
+with [docs/crm-setup.md](docs/crm-setup.md), then put the URL in `CRM_ENDPOINT`
+in [`src/config.ts`](src/config.ts). Until then the form opens a pre-filled
+email instead. Sessions and prices live in `SERVICES` in the same file;
+booking links are in [docs/calcom-setup.md](docs/calcom-setup.md).
+
+## The pack
 
 Set `PURCHASE_URL` in [`src/config.ts`](src/config.ts) to the storefront product
-link. Every "Get the Pack" CTA picks it up automatically. While it's empty the
+link. The "Get the Preset" button picks it up automatically. While it's empty the
 buttons scroll to the "What's in the pack" section instead of dead-ending.
 
 ## Album art

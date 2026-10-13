@@ -9,7 +9,7 @@ import {
 } from "react";
 
 /**
- * Minimal history-based router. The site is two pages — a routing library
+ * Minimal history-based router. The site is a handful of pages — a routing library
  * would be more dependency than the problem deserves.
  */
 
@@ -32,9 +32,11 @@ export function RouterProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const navigate = useCallback((to: string) => {
-    if (to !== currentPath()) {
+    if (to !== window.location.pathname + window.location.search) {
       window.history.pushState({}, "", to);
-      setPath(to.replace(/\/+$/, "") || "/");
+      // Read it back rather than using `to`, so a query string (/start?service=…)
+      // doesn't end up in the path that routes match on.
+      setPath(currentPath());
     }
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   }, []);

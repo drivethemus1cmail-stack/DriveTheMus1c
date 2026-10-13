@@ -12,9 +12,10 @@ export default function RightsSection() {
           Record it, release it, get paid for it &mdash; no royalties owed to us, ever.
         </p>
         <p className="mx-auto mt-4 max-w-xl text-sm text-[var(--ink-dim)]">
-          Your purchase includes a commercial-use license: release commercially, monetize on
-          Spotify, Apple Music, YouTube, and SoundCloud, and use the pack on paid client sessions.
-          You just can't resell or redistribute the original template and preset files.
+          The custom preset we build is yours. Release commercially, monetize on Spotify, Apple
+          Music, YouTube, and SoundCloud, and use it on paid client sessions. The same goes for
+          the Base FL Studio Preset &mdash; you just can't resell or redistribute its original
+          template and preset files.
         </p>
       </div>
     </section>

@@ -1,23 +1,24 @@
 import MotionMark from "./MotionMark";
-import { buyLinkProps, INSTAGRAM_URL, PACK_PRICE } from "../config";
+import { INSTAGRAM_URL, signupPath, SUPPORT_EMAIL } from "../config";
+import { Link } from "../router";
 
 export default function Footer() {
   return (
     <footer id="contact" className="grain relative overflow-hidden bg-[var(--black)] px-6 pt-28 text-center sm:px-10">
       <MotionMark className="mx-auto mb-8 h-7 w-12" />
       <h2 className="font-display mx-auto max-w-xl text-4xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
-        Your first session is waiting.
+        Your sound, dialed in.
       </h2>
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a
-          {...buyLinkProps}
+        <Link
+          to={signupPath()}
           className="font-display rounded-full bg-[var(--accent)] px-8 py-3 text-lg uppercase tracking-wide text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
         >
-          Get the Pack &mdash; {PACK_PRICE}
-        </a>
+          Book a Custom Mix
+        </Link>
         <a
-          href="mailto:drivethemus1cmail@gmail.com"
+          href={`mailto:${SUPPORT_EMAIL}`}
           className="font-display border border-white/15 px-8 py-3 text-lg uppercase tracking-wide text-white transition-colors hover:border-[var(--accent)] hover:text-[var(--accent-hi)]"
         >
           Contact

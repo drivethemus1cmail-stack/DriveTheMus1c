@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { buyLinkProps } from "../config";
+import { signupPath } from "../config";
 import { Link, useRouter } from "../router";
 import MiniPlayer from "./MiniPlayer";
 import Wordmark3D from "./Wordmark3D";
@@ -28,8 +28,8 @@ function useMinWidth(query: string) {
 }
 
 const NAV_SECTIONS = [
-  { id: "included", label: "The Pack" },
-  { id: "services", label: "Services" },
+  { id: "services", label: "Sessions" },
+  { id: "included", label: "Base Preset" },
 ];
 
 export default function TopBar() {
@@ -87,7 +87,7 @@ export default function TopBar() {
         {/* Decorative utility strip — yields to the mini player, which now needs
             the room. Only appears once there's genuinely space for both. */}
         <span className="font-mono mr-auto hidden text-[11px] uppercase tracking-[0.2em] text-[var(--ink-dim)] 2xl:block">
-          {SESSION_DATE} &middot; Beginner Recording Pack &middot; v1.0
+          {SESSION_DATE} &middot; Custom Vocal Mixes &middot; Online &amp; Santa Cruz
         </span>
 
         <nav className="flex items-center gap-2 sm:gap-6">
@@ -111,12 +111,12 @@ export default function TopBar() {
             My Music
           </Link>
 
-          <a
-            {...buyLinkProps}
+          <Link
+            to={signupPath()}
             className="font-mono inline-flex min-h-[44px] items-center whitespace-nowrap rounded-full bg-[var(--accent)] px-4 text-[11px] font-medium uppercase tracking-[0.2em] text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)] sm:px-5"
           >
-            Get the Pack
-          </a>
+            Book a Session
+          </Link>
         </nav>
 
         {/* Own row on mobile so the slider isn't crushed; inline on wider screens. */}

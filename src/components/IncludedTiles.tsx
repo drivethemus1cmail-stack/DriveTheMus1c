@@ -1,5 +1,5 @@
 import AlbumBackdrop from "./AlbumBackdrop";
-import { buyLinkProps, PACK_PRICE } from "../config";
+import { buyLinkProps, PACK_NAME, PACK_PRICE } from "../config";
 import Reveal from "./Reveal";
 
 type Tile = {
@@ -43,12 +43,16 @@ export default function IncludedTiles() {
       <div className="relative mx-auto max-w-[1600px]">
         <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="font-display text-5xl uppercase tracking-tight text-white sm:text-6xl">
-              What's in the pack
-            </h2>
-            <span className="font-mono mt-2 block text-xs uppercase tracking-[0.3em] text-[var(--ink-dim)]">
-              Beginner Recording Pack v1.0
+            <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--accent-hi)]">
+              Rather go DIY?
             </span>
+            <h2 className="mt-3 font-display text-4xl uppercase tracking-tight text-white sm:text-5xl">
+              The {PACK_NAME}
+            </h2>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-[var(--ink-dim)]">
+              The ready-made recording template: a pre-routed FL Studio session and vocal presets
+              you set up yourself. A solid start &mdash; just not tuned to your voice.
+            </p>
           </div>
 
           <div className="flex items-center gap-5">
@@ -59,37 +63,27 @@ export default function IncludedTiles() {
               <span className="font-mono mt-1 block text-[10px] uppercase tracking-[0.25em] text-[var(--ink-dim)]">
                 One-time &middot; instant download
               </span>
-              <a
-                href="#services"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="font-mono mt-2 block text-[10px] uppercase tracking-[0.2em] text-[var(--accent-hi)] underline-offset-4 hover:underline"
-              >
-                Free with select sessions &darr;
-              </a>
             </div>
             <a
               {...buyLinkProps}
               className="font-mono inline-flex min-h-[44px] items-center whitespace-nowrap rounded-full bg-[var(--accent)] px-6 text-[11px] font-medium uppercase tracking-[0.2em] text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
             >
-              Get the Pack
+              Get the Preset
             </a>
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {TILES.map((tile, i) => (
             <Reveal key={tile.name} index={i} className="h-full">
             <article
-              className="flex h-full min-h-[260px] flex-col justify-end rounded-lg border border-white/10 p-7"
+              className="flex h-full min-h-[200px] flex-col justify-end rounded-lg border border-white/10 p-6"
               style={{ background: tile.bg }}
             >
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--accent-hi)]">
                 {tile.tag}
               </span>
-              <h3 className="font-display mt-2 text-3xl uppercase text-white">{tile.name}</h3>
+              <h3 className="font-display mt-2 text-2xl uppercase text-white">{tile.name}</h3>
               <p className="mt-2 max-w-md text-sm leading-relaxed text-[var(--ink-dim)]">{tile.desc}</p>
             </article>
             </Reveal>

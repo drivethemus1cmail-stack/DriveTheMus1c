@@ -13,6 +13,7 @@ import Services from "./components/Services";
 import ProcessSection from "./components/ProcessSection";
 import RightsSection from "./components/RightsSection";
 import MyMusic from "./components/MyMusic";
+import SignUp from "./components/SignUp";
 import Footer from "./components/Footer";
 
 function HomePage() {
@@ -21,10 +22,10 @@ function HomePage() {
       <Hero />
       <CompatibilityStrip />
       <Statement />
-      <WaveformShowcase />
-      <IncludedTiles />
       <Services />
+      <WaveformShowcase />
       <ProcessSection />
+      <IncludedTiles />
       <RightsSection />
     </>
   );
@@ -32,7 +33,9 @@ function HomePage() {
 
 function Routes() {
   const { path } = useRouter();
-  return path === "/music" ? <MyMusic /> : <HomePage />;
+  if (path === "/music") return <MyMusic />;
+  if (path === "/start") return <SignUp />;
+  return <HomePage />;
 }
 
 function App() {
