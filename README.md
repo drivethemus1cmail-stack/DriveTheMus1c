@@ -54,8 +54,8 @@ landing page. The replay button in the header runs it again.
 ## Music
 
 The player queue in [`src/config.ts`](src/config.ts) mirrors Des1's Spotify
-catalogue. SOUTHSIDE always plays first; with shuffle on (the default) the rest
-follow in a random order. Music starts at 5% volume and can be muted or turned
+catalogue. Wreck always plays first; with shuffle on (the default) the rest
+follow in a random order. Music starts at 2.5% volume and can be muted or turned
 up from the header.
 
 Songs in `public/audio/` are 128 kbps MP3 encodes of the masters — keep

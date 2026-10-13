@@ -29,16 +29,6 @@ const SPOTIFY_TRACK = "https://open.spotify.com/track/";
  */
 export const TRACKS: Track[] = [
   {
-    id: "southside",
-    title: "SOUTHSIDE",
-    artists: "Des1, Yoniii",
-    album: "THE VAULT 1.0",
-    year: "2026",
-    file: "southside-demo.mp3",
-    art: "southside.jpg",
-    spotify: `${SPOTIFY_TRACK}3JHom2BG9jjsNReG3LcpHf`,
-  },
-  {
     id: "wreck",
     title: "Wreck",
     artists: "Des1",
@@ -47,6 +37,16 @@ export const TRACKS: Track[] = [
     file: "wreck.mp3",
     art: "wreck.jpg",
     spotify: `${SPOTIFY_TRACK}5jexKaAuzCFDGiSd8g3Unq`,
+  },
+  {
+    id: "southside",
+    title: "SOUTHSIDE",
+    artists: "Des1, Yoniii",
+    album: "THE VAULT 1.0",
+    year: "2026",
+    file: "southside-demo.mp3",
+    art: "southside.jpg",
+    spotify: `${SPOTIFY_TRACK}3JHom2BG9jjsNReG3LcpHf`,
   },
   {
     id: "hitafterhit",

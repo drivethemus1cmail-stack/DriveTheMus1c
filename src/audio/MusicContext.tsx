@@ -11,7 +11,7 @@ import {
 import { TRACKS, trackUrl, type Track } from "../config";
 
 /** Starts very quiet — it sits well under the page. The slider goes to 100% from here. */
-const DEFAULT_VOLUME = 0.035;
+const DEFAULT_VOLUME = 0.025;
 const FADE_MS = 1400;
 
 /** Fisher–Yates, returning a new array. */
@@ -77,7 +77,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  // The play order and our place in it. SOUTHSIDE (index 0) always leads.
+  // The play order and our place in it. The first track (Wreck) always leads.
   const orderRef = useRef<number[]>(buildOrder(0, true));
   const posRef = useRef(0);
   const indexRef = useRef(0);
