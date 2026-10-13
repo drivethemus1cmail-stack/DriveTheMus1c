@@ -252,4 +252,5 @@ export function signupPath(service?: Service) {
  * Leave empty until it's deployed — the sign-up form then opens a pre-filled
  * email instead, so nobody is turned away in the meantime.
  */
-export const CRM_ENDPOINT: string = "";
+export const CRM_ENDPOINT: string =
+  "https://script.google.com/macros/s/AKfycbxwaQ_o4YfpIWzbL_OnmW4KKio8cSSplVDMibYJweCw31WE6U_5KiGkk31rwt1R5SdrZw/exec";

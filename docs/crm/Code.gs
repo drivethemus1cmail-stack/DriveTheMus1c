@@ -247,6 +247,8 @@ function doPost(e) {
     put("Next step", NEXT_STEP[service] || "Reach out to schedule");
 
     sheet.appendRow(row);
+    // Writing a Date resets the cell to date-and-time; keep the column's look.
+    sheet.getRange(sheet.getLastRow(), col("Added")).setNumberFormat("mmm d, yyyy");
     notify(id, row);
   } finally {
     lock.releaseLock();
