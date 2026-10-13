@@ -173,8 +173,8 @@ export type Service = {
   /** What the client walks away with. */
   includes: string[];
   /**
-   * Cal.com booking link, shown after someone signs up so they can pick a
-   * time straight away. Empty means "I'll reach out to schedule" instead.
+   * Cal.com booking link, shown after someone signs up so they can book and
+   * pay straight away. Empty means "I'll reach out" instead.
    */
   url: string;
 };
@@ -184,6 +184,8 @@ export type Service = {
  * voice — live on a call, from a recording they send in, or in their studio. Signing up goes through /start, which writes
  * the client into the CRM before they book.
  */
+const CAL = "https://cal.com/drivethemus1c";
+
 export const SERVICES: Service[] = [
   {
     id: "online",
@@ -197,7 +199,7 @@ export const SERVICES: Service[] = [
       "Saved to your FL Studio so you can reuse it",
       "Levels and recording settings checked",
     ],
-    url: "",
+    url: `${CAL}/online-custom-mix-session`,
   },
   {
     id: "send-in",
@@ -211,7 +213,7 @@ export const SERVICES: Service[] = [
       "Aimed at the artist or sound you name",
       "Sent back ready to load in FL Studio",
     ],
-    url: "",
+    url: `${CAL}/send-in-custom-mix`,
   },
   {
     id: "in-person",
@@ -225,7 +227,7 @@ export const SERVICES: Service[] = [
       "Studio setup and troubleshooting",
       "Price confirmed before I come out, based on the job",
     ],
-    url: "",
+    url: `${CAL}/in-person-studio-session`,
   },
 ];
 

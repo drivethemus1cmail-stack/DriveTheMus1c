@@ -81,6 +81,25 @@ function toBase64(file: File) {
   });
 }
 
+/** What happens on the booking page each service's sign-up hands off to. */
+const NEXT_STEP: Record<string, { lead: string; button: string; note: string }> = {
+  online: {
+    lead: "Last step — pick a time and pay to lock it in.",
+    button: "Pick your time",
+    note: "You'll pick a time and pay on the next step.",
+  },
+  "send-in": {
+    lead: "Last step — confirm and pay so I can start on your preset.",
+    button: "Confirm & pay",
+    note: "You'll confirm and pay on the next step.",
+  },
+  "in-person": {
+    lead: "Last step — request a time. I'll confirm it's in range before it's locked in.",
+    button: "Request a time",
+    note: "You'll request a time on the next step.",
+  },
+};
+
 const inputClass =
   "w-full min-h-[44px] rounded-md border border-white/15 bg-[var(--panel)] px-4 py-2.5 text-white placeholder:text-[var(--ink-dim)]/60 transition-colors focus:border-[var(--accent)] focus:outline-none";
 
@@ -116,6 +135,7 @@ export default function SignUp() {
   const service = findService(fields.service) ?? SERVICES[0];
   const inPerson = service.id === "in-person";
   const sendIn = isSendIn(service);
+  const next = service.url ? NEXT_STEP[service.id] : undefined;
 
   const set =
     (key: keyof Fields) =>
@@ -201,10 +221,10 @@ export default function SignUp() {
               {status === "done" ? "You're in." : "Almost there."}
             </h2>
             {status === "done" ? (
-              service.url ? (
+              next ? (
                 <>
                   <p className="mx-auto mt-3 max-w-md text-[var(--ink-dim)]">
-                    Got your details. Last step &mdash; pick a time that works for you.
+                    {sendIn ? "Got your recording." : "Got your details."} {next.lead}
                   </p>
                   <a
                     href={service.url}
@@ -212,7 +232,7 @@ export default function SignUp() {
                     rel="noopener noreferrer"
                     className="font-display mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--accent)] px-8 py-3 text-lg uppercase tracking-wide text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
                   >
-                    Pick your time
+                    {next.button}
                   </a>
                 </>
               ) : sendIn ? (
@@ -235,6 +255,19 @@ export default function SignUp() {
                 </a>{" "}
                 or email {SUPPORT_EMAIL}.
               </p>
+            )}
+            {status === "emailed" && next && (
+              <>
+                <p className="mx-auto mt-6 max-w-md text-[var(--ink-dim)]">Then {next.lead.replace(/^Last step — /, "")}</p>
+                <a
+                  href={service.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-display mt-4 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--accent)] px-8 py-3 text-lg uppercase tracking-wide text-[#1a1206] transition-colors hover:bg-[var(--accent-hi)]"
+                >
+                  {next.button}
+                </a>
+              </>
             )}
           </div>
         ) : (
@@ -441,12 +474,11 @@ export default function SignUp() {
             </button>
 
             <p className="text-center text-xs text-[var(--ink-dim)]">
-              No payment yet.{" "}
-              {sendIn
-                ? "I'll listen first and reach out with next steps."
-                : service.url
-                  ? "You'll pick a time next."
-                  : "I'll reach out to set a time."}
+              {next
+                ? next.note
+                : sendIn
+                  ? "No payment yet. I'll listen first and reach out with next steps."
+                  : "No payment yet. I'll reach out to set a time."}
             </p>
           </form>
         )}
